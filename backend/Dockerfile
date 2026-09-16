@@ -1,7 +1,9 @@
 # Runs the Laravel + Filament CMS on Railway. Railway's Railpack builder
 # can't reliably auto-detect this app (Laravel in a subdirectory), so this
 # Dockerfile takes over the build deterministically.
-FROM php:8.3-cli
+# composer.lock has symfony/console pinned to a version requiring PHP >=8.4.1
+# (this project targets PHP 8.5 per CLAUDE.md), so the image must be 8.4+.
+FROM php:8.4-cli
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git unzip libzip-dev libpq-dev libsqlite3-dev libonig-dev \
