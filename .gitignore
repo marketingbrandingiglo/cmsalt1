@@ -1,0 +1,28 @@
+# Dependencies
+**/node_modules/
+
+# Env files (never commit secrets)
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Build output
+**/.next/
+**/build/
+**/dist/
+
+# Strapi
+**/.cache/
+**/.strapi/
+**/.tmp/
+
+# Logs
+**/*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
