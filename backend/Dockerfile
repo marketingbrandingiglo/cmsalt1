@@ -6,8 +6,8 @@
 FROM php:8.4-cli
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git unzip libzip-dev libpq-dev libsqlite3-dev libonig-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pdo_sqlite mbstring zip \
+    git unzip libzip-dev libpq-dev libsqlite3-dev libonig-dev libicu-dev \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pdo_sqlite mbstring zip intl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
