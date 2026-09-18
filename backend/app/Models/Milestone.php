@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Milestone extends Model
 {
-    protected $fillable = ['year', 'order'];
+    protected $fillable = ['period', 'order'];
 
-    public function events(): HasMany
+    public function logos(): HasMany
     {
-        return $this->hasMany(MilestoneEvent::class)->orderBy('order');
+        return $this->hasMany(MilestoneLogo::class)->orderBy('order');
     }
 }

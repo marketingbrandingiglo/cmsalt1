@@ -9,6 +9,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
@@ -29,28 +30,30 @@ class MilestoneResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('year')
+                TextInput::make('period')
                     ->required()
-                    ->maxLength(10),
+                    ->maxLength(50)
+                    ->helperText('E.g. "2021 - Present".'),
                 TextInput::make('order')
                     ->numeric()
                     ->default(0)
-                    ->helperText('Larger number shows first (most recent year on top).'),
-                Repeater::make('events')
-                    ->relationship('events')
+                    ->helperText('Larger number shows first (most recent period on top).'),
+                Repeater::make('logos')
+                    ->relationship('logos')
                     ->orderColumn('order')
                     ->schema([
-                        TextInput::make('text_id')
-                            ->label('Event (Indonesian)')
+                        TextInput::make('name')
+                            ->label('Partner/client name')
                             ->required(),
-                        TextInput::make('text_en')
-                            ->label('Event (English)')
-                            ->required(),
+                        FileUpload::make('logo_path')
+                            ->label('Logo')
+                            ->image()
+                            ->directory('milestones'),
                     ])
                     ->columns(2)
-                    ->addActionLabel('Add event')
+                    ->addActionLabel('Add logo')
                     ->reorderableWithButtons()
-                    ->defaultItems(1),
+                    ->defaultItems(0),
             ]);
     }
 
@@ -59,11 +62,11 @@ class MilestoneResource extends Resource
         return $table
             ->defaultSort('order', 'desc')
             ->columns([
-                TextColumn::make('year')->sortable(),
+                TextColumn::make('period')->sortable(),
                 TextColumn::make('order')->sortable(),
-                TextColumn::make('events_count')
-                    ->counts('events')
-                    ->label('Events'),
+                TextColumn::make('logos_count')
+                    ->counts('logos')
+                    ->label('Logos'),
             ])
             ->filters([
                 //

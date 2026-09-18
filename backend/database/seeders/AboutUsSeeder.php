@@ -64,37 +64,24 @@ class AboutUsSeeder extends Seeder
             return;
         }
 
-        $items = [
-            ['year' => '2023', 'id' => ['Creatio', 'Menjadi Mitra SAP'], 'en' => ['Creatio', 'Being a Partner of SAP']],
-            ['year' => '2022', 'id' => ['Menjadi Mitra Software AG', 'Informatica', 'UiPath Partner Diamond', 'Newgen'], 'en' => ['Being a Partner of Software AG', 'Informatica', 'UiPath Partner Diamond', 'Newgen']],
-            ['year' => '2021', 'id' => ['Tableau'], 'en' => ['Tableau']],
-            ['year' => '2019', 'id' => ['UiPath'], 'en' => ['UiPath']],
-            ['year' => '2018', 'id' => ['DataRobot', '3Dolphins'], 'en' => ['DataRobot', '3Dolphins']],
-            ['year' => '2017', 'id' => ['Menjadi Mitra IBM', 'Menjadi Mitra Lenddo', 'Menjadi Mitra Pitney Bowes'], 'en' => ['Being a Partner of IBM', 'Being a Partner of Lenddo', 'Being a Partner of Pitney Bowes']],
-            ['year' => '2016', 'id' => ['Menjadi Mitra LAMP'], 'en' => ['Being a Partner of LAMP']],
-            ['year' => '2014', 'id' => ['Menjadi Mitra Tibco'], 'en' => ['Being a Partner of Tibco']],
-            ['year' => '2012', 'id' => ['Menjadi Gold Partner Oracle'], 'en' => ['Being a Gold Partner of Oracle']],
-            ['year' => '2009', 'id' => ['Menjadi Mitra Blackberry'], 'en' => ['Being a Partner of Blackberry']],
-            ['year' => '2008', 'id' => ['Menjadi Mitra Microsoft'], 'en' => ['Being a Partner of Microsoft']],
-            ['year' => '2007', 'id' => ['Menjadi Mitra Telkomsel'], 'en' => ['Being a Partner of Telkomsel']],
-            ['year' => '2006', 'id' => ['Menjadi Mitra Oracle'], 'en' => ['Being a Partner of Oracle']],
-            ['year' => '2003', 'id' => ['Menjadi Satu-Satunya Distributor MAGIC Software'], 'en' => ['Being The Only One MAGIC Software Distributor']],
-            ['year' => '2001', 'id' => ['Menjadi Mitra MAGIC Software'], 'en' => ['Being a Partner of MAGIC Software']],
+        // Matches the 5 periods grouped in the iglo frontend's About page
+        // (lib/content.js MILESTONE_GROUPS). Logos are left for an editor to
+        // upload via the admin panel — the frontend falls back to its own
+        // static logos for a period until it has at least one here.
+        $periods = [
+            '2021 - Present',
+            '2016 - 2020',
+            '2011 - 2015',
+            '2006 - 2010',
+            '2001 - 2005',
         ];
 
-        $total = count($items);
-        foreach ($items as $i => $item) {
-            $milestone = Milestone::create([
-                'year' => $item['year'],
+        $total = count($periods);
+        foreach ($periods as $i => $period) {
+            Milestone::create([
+                'period' => $period,
                 'order' => $total - $i, // newest first
             ]);
-            foreach ($item['id'] as $j => $textId) {
-                $milestone->events()->create([
-                    'text_id' => $textId,
-                    'text_en' => $item['en'][$j],
-                    'order' => $j,
-                ]);
-            }
         }
     }
 

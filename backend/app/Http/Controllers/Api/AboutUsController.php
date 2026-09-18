@@ -53,19 +53,20 @@ class AboutUsController extends Controller
         ]);
     }
 
-    public function milestones(Request $request)
+    public function milestones()
     {
-        $locale = $this->locale($request);
-        $milestones = Milestone::with('events')->orderByDesc('order')->get();
+        $milestones = Milestone::with('logos')->orderByDesc('order')->get();
 
         return response()->json([
             'data' => $milestones->map(fn ($m) => [
                 'id' => $m->id,
-                'year' => $m->year,
+                'period' => $m->period,
                 'order' => $m->order,
-                'events' => $m->events->map(fn ($e) => [
-                    'id' => $e->id,
-                    'text' => $e->{"text_{$locale}"},
+                'logos' => $m->logos->map(fn ($l) => [
+                    'id' => $l->id,
+                    'name' => $l->name,
+                    'logoUrl' => $this->logoUrl($l->logo_path),
+                    'order' => $l->order,
                 ]),
             ]),
         ]);
