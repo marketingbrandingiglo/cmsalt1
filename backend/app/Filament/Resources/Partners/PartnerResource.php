@@ -17,6 +17,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class PartnerResource extends Resource
 {
@@ -25,6 +26,10 @@ class PartnerResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHandRaised;
 
     protected static ?string $navigationLabel = 'Partners';
+
+    protected static string|UnitEnum|null $navigationGroup = 'About Us';
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Schema $schema): Schema
     {

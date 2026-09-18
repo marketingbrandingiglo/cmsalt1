@@ -9,12 +9,15 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ClientCategoryResource extends Resource
 {
@@ -23,6 +26,10 @@ class ClientCategoryResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
     protected static ?string $navigationLabel = 'Client Categories';
+
+    protected static string|UnitEnum|null $navigationGroup = 'About Us';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {
@@ -40,6 +47,25 @@ class ClientCategoryResource extends Resource
                     ->numeric()
                     ->default(0)
                     ->helperText('Controls the tab order on the About Us page.'),
+                Repeater::make('clients')
+                    ->relationship('clients')
+                    ->orderColumn('order')
+                    ->schema([
+                        TextInput::make('name')
+                            ->label('Client name')
+                            ->required(),
+                        FileUpload::make('logo_path')
+                            ->label('Logo')
+                            ->image()
+                            ->directory('clients'),
+                        TextInput::make('website_url')
+                            ->label('Website URL')
+                            ->url(),
+                    ])
+                    ->columns(3)
+                    ->addActionLabel('Add client')
+                    ->reorderableWithButtons()
+                    ->defaultItems(0),
             ]);
     }
 

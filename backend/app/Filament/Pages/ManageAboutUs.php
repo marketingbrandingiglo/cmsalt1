@@ -18,6 +18,7 @@ use Filament\Schemas\Components\Form;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use UnitEnum;
 
 /**
  * Single settings page for the About Us content (Deskripsi, Visi, Misi,
@@ -30,9 +31,13 @@ class ManageAboutUs extends Page
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedIdentification;
 
-    protected static ?string $navigationLabel = 'About Us';
+    protected static ?string $navigationLabel = 'Visi Misi';
 
-    protected static ?string $title = 'About Us';
+    protected static ?string $title = 'Visi Misi';
+
+    protected static string|UnitEnum|null $navigationGroup = 'About Us';
+
+    protected static ?int $navigationSort = 1;
 
     /** @var array<string, mixed>|null */
     public ?array $data = [];
