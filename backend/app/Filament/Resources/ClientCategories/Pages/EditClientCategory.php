@@ -3,17 +3,17 @@
 namespace App\Filament\Resources\ClientCategories\Pages;
 
 use App\Filament\Resources\ClientCategories\ClientCategoryResource;
-use Filament\Actions\CreateAction;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Actions\DeleteAction;
+use Filament\Resources\Pages\EditRecord;
 
-class ManageClientCategories extends ManageRecords
+class EditClientCategory extends EditRecord
 {
     protected static string $resource = ClientCategoryResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

@@ -2,15 +2,13 @@
 
 namespace App\Filament\Resources\ClientCategories;
 
-use App\Filament\Resources\ClientCategories\Pages\ManageClientCategories;
+use App\Filament\Resources\ClientCategories\Pages\EditClientCategory;
+use App\Filament\Resources\ClientCategories\Pages\ListClientCategories;
+use App\Filament\Resources\ClientCategories\RelationManagers\ClientsRelationManager;
 use App\Models\ClientCategory;
 use BackedEnum;
-use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -47,25 +45,6 @@ class ClientCategoryResource extends Resource
                     ->numeric()
                     ->default(0)
                     ->helperText('Controls the tab order on the About Us page.'),
-                Repeater::make('clients')
-                    ->relationship('clients')
-                    ->orderColumn('order')
-                    ->schema([
-                        TextInput::make('name')
-                            ->label('Client name')
-                            ->required(),
-                        FileUpload::make('logo_path')
-                            ->label('Logo')
-                            ->image()
-                            ->directory('clients'),
-                        TextInput::make('website_url')
-                            ->label('Website URL')
-                            ->url(),
-                    ])
-                    ->columns(3)
-                    ->addActionLabel('Add client')
-                    ->reorderableWithButtons()
-                    ->defaultItems(0),
             ]);
     }
 
@@ -85,18 +64,21 @@ class ClientCategoryResource extends Resource
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            ClientsRelationManager::class,
+        ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ManageClientCategories::route('/'),
+            'index' => ListClientCategories::route('/'),
+            'edit' => EditClientCategory::route('/{record}/edit'),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\ClientCategory;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -25,6 +26,16 @@ class AdminPanelNavigationTest extends TestCase
     {
         $this->actingAs(User::factory()->create())
             ->get($path)
+            ->assertOk();
+    }
+
+    public function test_client_category_edit_page_loads_with_nested_clients(): void
+    {
+        $category = ClientCategory::create(['name_id' => 'Bank', 'name_en' => 'Bank', 'order' => 0]);
+        $category->clients()->create(['name' => 'BCA', 'order' => 0]);
+
+        $this->actingAs(User::factory()->create())
+            ->get("/admin/client-categories/{$category->id}/edit")
             ->assertOk();
     }
 }
