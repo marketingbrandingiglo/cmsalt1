@@ -1,0 +1,12 @@
+/* "About Us" (and future top-level group labels) stay bold; the pages
+   nested under a group (Visi Misi, Client Categories, Milestones,
+   Partners, ...) are lighter and a size smaller, so the group reads as
+   the heading and its pages read as a sub-list. */
+.fi-sidebar-group-label {
+    font-weight: 700;
+}
+
+.fi-sidebar-item-label {
+    font-weight: 400;
+    font-size: 0.75rem;
+}
