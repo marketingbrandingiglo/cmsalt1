@@ -1,0 +1,548 @@
+{
+  "partners": [
+    {
+      "name": "SAP",
+      "file": "sap.png"
+    },
+    {
+      "name": "Creatio",
+      "file": "creatio.png"
+    },
+    {
+      "name": "Software AG",
+      "file": "software-ag.png"
+    },
+    {
+      "name": "Informatica",
+      "file": "informatica.png"
+    },
+    {
+      "name": "UiPath",
+      "file": "uipath.png"
+    },
+    {
+      "name": "Newgen",
+      "file": "newgen.png"
+    },
+    {
+      "name": "DataRobot",
+      "file": "datarobot.png"
+    },
+    {
+      "name": "3Dolphins SRM",
+      "file": "3dolphins-srm.png"
+    },
+    {
+      "name": "LAMP",
+      "file": "lamp.png"
+    },
+    {
+      "name": "JurisTech",
+      "file": "juristech.png"
+    },
+    {
+      "name": "Katalon",
+      "file": "katalon.png"
+    },
+    {
+      "name": "WhaTap",
+      "file": "whatap.png"
+    }
+  ],
+  "milestones": [
+    {
+      "period": "2021 - Present",
+      "logos": [
+        {
+          "name": "Tableau",
+          "file": "tableau.png"
+        },
+        {
+          "name": "WhaTap",
+          "file": "whatap.png"
+        },
+        {
+          "name": "Telstra",
+          "file": "telstra.png"
+        },
+        {
+          "name": "Fortanix",
+          "file": "fortanix.png"
+        },
+        {
+          "name": "Creatio",
+          "file": "creatio.png"
+        },
+        {
+          "name": "ACI Worldwide",
+          "file": "aci-worldwide.png"
+        },
+        {
+          "name": "Tilaka Nusa Teknologi",
+          "file": "tilaka-nusa-teknologi.png"
+        },
+        {
+          "name": "Informatica",
+          "file": "informatica.png"
+        },
+        {
+          "name": "JurisTech",
+          "file": "juristech.png"
+        },
+        {
+          "name": "Software AG",
+          "file": "software-ag.png"
+        },
+        {
+          "name": "Newgen",
+          "file": "newgen.png"
+        },
+        {
+          "name": "Cyclone",
+          "file": "cyclone.png"
+        },
+        {
+          "name": "Xoxoday",
+          "file": "xoxoday.png"
+        },
+        {
+          "name": "Tada",
+          "file": "tada.png"
+        },
+        {
+          "name": "Zscaler",
+          "file": "zscaler.png"
+        },
+        {
+          "name": "Okta",
+          "file": "okta.png"
+        },
+        {
+          "name": "DynaFront",
+          "file": "dynafront.png"
+        },
+        {
+          "name": "Solace",
+          "file": "solace.png"
+        },
+        {
+          "name": "Katalon",
+          "file": "katalon.png"
+        },
+        {
+          "name": "Palo Alto Networks",
+          "file": "palo-alto-networks.png"
+        },
+        {
+          "name": "IBM",
+          "file": "ibm.png"
+        },
+        {
+          "name": "Delphix",
+          "file": "delphix.png"
+        },
+        {
+          "name": "Finastra",
+          "file": "finastra.png"
+        },
+        {
+          "name": "OBS",
+          "file": "obs.png"
+        },
+        {
+          "name": "Sonar",
+          "file": "sonar.png"
+        },
+        {
+          "name": "SecIron",
+          "file": "seciron.png"
+        }
+      ],
+      "periodSlug": "2021-present"
+    },
+    {
+      "period": "2016 - 2020",
+      "logos": [
+        {
+          "name": "LAMP",
+          "file": "lamp.png"
+        },
+        {
+          "name": "DataRobot",
+          "file": "datarobot.png"
+        },
+        {
+          "name": "3Dolphins SRM",
+          "file": "3dolphins-srm.png"
+        },
+        {
+          "name": "UiPath",
+          "file": "uipath.png"
+        },
+        {
+          "name": "Mitra APPI",
+          "file": "mitra-appi.png"
+        },
+        {
+          "name": "Blockchain Finhacks Finalist",
+          "file": "blockchain-finhacks-finalist.png"
+        }
+      ],
+      "periodSlug": "2016-2020"
+    },
+    {
+      "period": "2011 - 2015",
+      "logos": [
+        {
+          "name": "Oracle Gold Partner",
+          "file": "oracle-gold-partner.png"
+        },
+        {
+          "name": "TIBCO",
+          "file": "tibco.png"
+        }
+      ],
+      "periodSlug": "2011-2015"
+    },
+    {
+      "period": "2006 - 2010",
+      "logos": [
+        {
+          "name": "Oracle PartnerNetwork",
+          "file": "oracle-partnernetwork.png"
+        },
+        {
+          "name": "Telkomsel Corporate Business Solutions",
+          "file": "telkomsel-corporate-business-solutions.png"
+        },
+        {
+          "name": "Microsoft Partner Network",
+          "file": "microsoft-partner-network.png"
+        },
+        {
+          "name": "BlackBerry Alliance Elite Member",
+          "file": "blackberry-alliance-elite-member.png"
+        }
+      ],
+      "periodSlug": "2006-2010"
+    },
+    {
+      "period": "2001 - 2005",
+      "logos": [
+        {
+          "name": "Magic Software Solution & Developer Partner",
+          "file": "magic-software-solution-developer-partner.png"
+        },
+        {
+          "name": "Magic Software Authorized Distributor",
+          "file": "magic-software-authorized-distributor.png"
+        },
+        {
+          "name": "SAP",
+          "file": "sap.png"
+        }
+      ],
+      "periodSlug": "2001-2005"
+    }
+  ],
+  "clients": [
+    {
+      "category": "Multifinance",
+      "clients": [
+        {
+          "name": "ACC",
+          "file": "acc.png"
+        },
+        {
+          "name": "Astra Financial",
+          "file": "astra-financial.png"
+        },
+        {
+          "name": "BCA Finance",
+          "file": "bca-finance.png"
+        },
+        {
+          "name": "BFI Finance",
+          "file": "bfi-finance.png"
+        },
+        {
+          "name": "CSUL Finance",
+          "file": "csul-finance.png"
+        },
+        {
+          "name": "Dipo Star Finance",
+          "file": "dipo-star-finance.png"
+        },
+        {
+          "name": "Esta Dana Ventura",
+          "file": "esta-dana-ventura.png"
+        },
+        {
+          "name": "FIFGROUP",
+          "file": "fifgroup.png"
+        },
+        {
+          "name": "Komatsu",
+          "file": "komatsu.png"
+        },
+        {
+          "name": "Kredit Plus",
+          "file": "kredit-plus.png"
+        },
+        {
+          "name": "Kresna Reksa Finance",
+          "file": "kresna-reksa-finance.png"
+        },
+        {
+          "name": "Mandala Finance",
+          "file": "mandala-finance.png"
+        },
+        {
+          "name": "Mandiri Utama Finance",
+          "file": "mandiri-utama-finance.png"
+        },
+        {
+          "name": "Radana Finance",
+          "file": "radana-finance.png"
+        },
+        {
+          "name": "SANF",
+          "file": "sanf.png"
+        },
+        {
+          "name": "Sarana Multi Infrastruktur",
+          "file": "sarana-multi-infrastruktur.png"
+        },
+        {
+          "name": "SMS Finance",
+          "file": "sms-finance.png"
+        },
+        {
+          "name": "TAF",
+          "file": "taf.png"
+        }
+      ],
+      "categorySlug": "multifinance"
+    },
+    {
+      "category": "Asuransi",
+      "clients": [
+        {
+          "name": "AIA",
+          "file": "aia.png"
+        },
+        {
+          "name": "Asuransi Astra",
+          "file": "asuransi-astra.png"
+        },
+        {
+          "name": "Aviva",
+          "file": "aviva.png"
+        },
+        {
+          "name": "AXA",
+          "file": "axa.png"
+        },
+        {
+          "name": "BhinekaLife",
+          "file": "bhinekalife.png"
+        },
+        {
+          "name": "Car Life Insurance",
+          "file": "car-life-insurance.png"
+        },
+        {
+          "name": "Chubb",
+          "file": "chubb.png"
+        },
+        {
+          "name": "Cigna",
+          "file": "cigna.png"
+        },
+        {
+          "name": "FWD Insurance",
+          "file": "fwd-insurance.png"
+        },
+        {
+          "name": "Generali",
+          "file": "generali.png"
+        },
+        {
+          "name": "IFG",
+          "file": "ifg.png"
+        },
+        {
+          "name": "Jasindo",
+          "file": "jasindo.png"
+        },
+        {
+          "name": "PFI Mega Life",
+          "file": "pfi-mega-life.png"
+        },
+        {
+          "name": "Prudential",
+          "file": "prudential.png"
+        },
+        {
+          "name": "Sequis Life",
+          "file": "sequis-life.png"
+        },
+        {
+          "name": "Sompo Insurance",
+          "file": "sompo-insurance.png"
+        },
+        {
+          "name": "Sun Life",
+          "file": "sun-life.png"
+        },
+        {
+          "name": "Tokio Marine",
+          "file": "tokio-marine.png"
+        },
+        {
+          "name": "Zurich",
+          "file": "zurich.png"
+        }
+      ],
+      "categorySlug": "asuransi"
+    },
+    {
+      "category": "Bank",
+      "clients": [
+        {
+          "name": "Bank Aladin",
+          "file": "bank-aladin.png"
+        },
+        {
+          "name": "Bank BTN",
+          "file": "bank-btn.png"
+        },
+        {
+          "name": "Bank BTPN",
+          "file": "bank-btpn.png"
+        },
+        {
+          "name": "Bank Sampoerna",
+          "file": "bank-sampoerna.png"
+        },
+        {
+          "name": "Bank Sinarmas",
+          "file": "bank-sinarmas.png"
+        },
+        {
+          "name": "BCA",
+          "file": "bca.png"
+        },
+        {
+          "name": "BNI",
+          "file": "bni.png"
+        },
+        {
+          "name": "BRI",
+          "file": "bri.png"
+        },
+        {
+          "name": "Bank Mandiri",
+          "file": "bank-mandiri.png"
+        },
+        {
+          "name": "UOB",
+          "file": "uob.png"
+        }
+      ],
+      "categorySlug": "bank"
+    },
+    {
+      "category": "Retail & Manufaktur",
+      "clients": [
+        {
+          "name": "KFC",
+          "file": "kfc.png"
+        },
+        {
+          "name": "Medion",
+          "file": "medion.png"
+        },
+        {
+          "name": "Shop & Drive",
+          "file": "shop-drive.png"
+        },
+        {
+          "name": "Sparepart Factory",
+          "file": "sparepart-factory.png"
+        },
+        {
+          "name": "Sukanda Djaya",
+          "file": "sukanda-djaya.png"
+        },
+        {
+          "name": "Tip Top",
+          "file": "tip-top.png"
+        },
+        {
+          "name": "Wings Group",
+          "file": "wings-group.png"
+        }
+      ],
+      "categorySlug": "retail-manufaktur"
+    },
+    {
+      "category": "Lainnya",
+      "clients": [
+        {
+          "name": "Astra Honda Motor",
+          "file": "astra-honda-motor.png"
+        },
+        {
+          "name": "Anteraja",
+          "file": "anteraja.png"
+        },
+        {
+          "name": "Berlian Sistem Informasi",
+          "file": "berlian-sistem-informasi.png"
+        },
+        {
+          "name": "Bethsaida Hospital",
+          "file": "bethsaida-hospital.png"
+        },
+        {
+          "name": "Blue Bird",
+          "file": "blue-bird.png"
+        },
+        {
+          "name": "Gudang Garam",
+          "file": "gudang-garam.png"
+        },
+        {
+          "name": "PLN",
+          "file": "pln.png"
+        },
+        {
+          "name": "Telkomsigma",
+          "file": "telkomsigma.png"
+        },
+        {
+          "name": "Tigaraksa Satria",
+          "file": "tigaraksa-satria.png"
+        },
+        {
+          "name": "Tower Bersama Group",
+          "file": "tower-bersama-group.png"
+        },
+        {
+          "name": "Trakindo",
+          "file": "trakindo.png"
+        },
+        {
+          "name": "TTNI",
+          "file": "ttni.png"
+        },
+        {
+          "name": "XL Axiata",
+          "file": "xl-axiata.png"
+        }
+      ],
+      "categorySlug": "lainnya"
+    }
+  ]
+}
