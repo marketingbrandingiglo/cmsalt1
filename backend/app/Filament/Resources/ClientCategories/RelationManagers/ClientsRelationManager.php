@@ -29,6 +29,7 @@ class ClientsRelationManager extends RelationManager
                 FileUpload::make('logo_path')
                     ->label('Logo')
                     ->image()
+                    ->disk('public')
                     ->directory('clients'),
                 TextInput::make('website_url')
                     ->label('Website URL')

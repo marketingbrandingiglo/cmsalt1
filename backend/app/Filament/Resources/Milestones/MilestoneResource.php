@@ -53,6 +53,7 @@ class MilestoneResource extends Resource
                         FileUpload::make('logo_path')
                             ->label('Logo')
                             ->image()
+                            ->disk('public')
                             ->directory('milestones'),
                     ])
                     ->columns(2)

@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\Partners;
+namespace App\Filament\Resources\Values;
 
-use App\Filament\Resources\Partners\Pages\ManagePartners;
-use App\Models\Partner;
+use App\Filament\Resources\Values\Pages\ManageValues;
+use App\Models\AboutValue;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -19,35 +20,43 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
 
-class PartnerResource extends Resource
+/**
+ * Company values (Value I5) shown as cards on the About Us page. Kept as
+ * its own resource, separate from the Vision & Mission settings page —
+ * there is always exactly one owning AboutUs row, set automatically (see
+ * AboutValue::booted()).
+ */
+class ValueResource extends Resource
 {
-    protected static ?string $model = Partner::class;
+    protected static ?string $model = AboutValue::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHandRaised;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSparkles;
 
-    protected static ?string $navigationLabel = 'Partners';
+    protected static ?string $navigationLabel = 'Values';
 
     protected static string|UnitEnum|null $navigationGroup = 'About Us';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 5;
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                TextInput::make('name')
+                TextInput::make('title')
+                    ->label('Title/Name')
                     ->required()
                     ->maxLength(255),
-                FileUpload::make('logo_path')
-                    ->label('Logo')
+                FileUpload::make('image_path')
+                    ->label('Image')
                     ->image()
                     ->disk('public')
-                    ->directory('partners')
-                    ->required(),
-                TextInput::make('website_url')
-                    ->label('Website URL')
-                    ->url()
-                    ->maxLength(255),
+                    ->directory('about-values'),
+                Textarea::make('description_id')
+                    ->label('Description (Indonesian)')
+                    ->rows(3),
+                Textarea::make('description_en')
+                    ->label('Description (English)')
+                    ->rows(3),
                 TextInput::make('order')
                     ->numeric()
                     ->default(0),
@@ -59,8 +68,8 @@ class PartnerResource extends Resource
         return $table
             ->defaultSort('order')
             ->columns([
-                ImageColumn::make('logo_path')->label('Logo'),
-                TextColumn::make('name')->searchable(),
+                ImageColumn::make('image_path')->label('Image'),
+                TextColumn::make('title')->searchable(),
                 TextColumn::make('order')->sortable(),
             ])
             ->filters([
@@ -80,7 +89,7 @@ class PartnerResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ManagePartners::route('/'),
+            'index' => ManageValues::route('/'),
         ];
     }
 }
