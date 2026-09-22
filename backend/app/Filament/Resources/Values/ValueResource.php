@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\Clients;
+namespace App\Filament\Resources\Values;
 
-use App\Filament\Resources\Clients\Pages\ManageClients;
-use App\Models\Client;
+use App\Filament\Resources\Values\Pages\ManageValues;
+use App\Models\AboutValue;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -19,37 +19,39 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class ClientResource extends Resource
+/**
+ * Company values (Value I5) shown as cards on the About Us page. Kept as
+ * its own resource, separate from the Vision & Mission settings page —
+ * there is always exactly one owning AboutUs row, set automatically (see
+ * AboutValue::booted()).
+ */
+class ValueResource extends Resource
 {
-    protected static ?string $model = Client::class;
+    protected static ?string $model = AboutValue::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice2;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSparkles;
 
-    protected static ?string $navigationLabel = 'Clients';
+    protected static ?string $navigationLabel = 'Values';
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Select::make('client_category_id')
-                    ->label('Category')
-                    ->relationship('category', 'name_id')
-                    ->required()
-                    ->searchable()
-                    ->preload(),
-                TextInput::make('name')
+                TextInput::make('title')
+                    ->label('Title/Name')
                     ->required()
                     ->maxLength(255),
-                FileUpload::make('logo_path')
-                    ->label('Logo')
+                FileUpload::make('image_path')
+                    ->label('Image')
                     ->image()
                     ->disk('public')
-                    ->directory('clients')
-                    ->required(),
-                TextInput::make('website_url')
-                    ->label('Website URL')
-                    ->url()
-                    ->maxLength(255),
+                    ->directory('about-values'),
+                Textarea::make('description_id')
+                    ->label('Description (Indonesian)')
+                    ->rows(3),
+                Textarea::make('description_en')
+                    ->label('Description (English)')
+                    ->rows(3),
                 TextInput::make('order')
                     ->numeric()
                     ->default(0),
@@ -61,9 +63,8 @@ class ClientResource extends Resource
         return $table
             ->defaultSort('order')
             ->columns([
-                ImageColumn::make('logo_path')->label('Logo'),
-                TextColumn::make('name')->searchable(),
-                TextColumn::make('category.name_id')->label('Category')->sortable(),
+                ImageColumn::make('image_path')->label('Image'),
+                TextColumn::make('title')->searchable(),
                 TextColumn::make('order')->sortable(),
             ])
             ->filters([
@@ -83,7 +84,7 @@ class ClientResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ManageClients::route('/'),
+            'index' => ManageValues::route('/'),
         ];
     }
 }

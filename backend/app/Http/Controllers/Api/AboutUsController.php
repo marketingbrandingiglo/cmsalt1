@@ -31,7 +31,7 @@ class AboutUsController extends Controller
     public function aboutUs(Request $request)
     {
         $locale = $this->locale($request);
-        $aboutUs = AboutUs::with('values')->first();
+        $aboutUs = AboutUs::with(['values', 'stats'])->first();
 
         if (! $aboutUs) {
             return response()->json(['data' => null]);
@@ -40,15 +40,38 @@ class AboutUsController extends Controller
         return response()->json([
             'data' => [
                 'companyName' => $aboutUs->company_name,
+                'banner' => [
+                    'imageUrl' => $this->logoUrl($aboutUs->banner_image_path),
+                    'title' => $aboutUs->{"banner_title_{$locale}"},
+                    'description' => $aboutUs->{"banner_description_{$locale}"},
+                ],
                 'description' => $aboutUs->{"description_{$locale}"},
                 'vision' => $aboutUs->{"vision_{$locale}"},
                 'mission' => $aboutUs->{"mission_{$locale}"},
+                'stats' => $aboutUs->stats->map(fn ($s) => [
+                    'id' => $s->id,
+                    'value' => $s->value,
+                    'label' => $s->{"label_{$locale}"},
+                    'note' => $s->{"note_{$locale}"},
+                    'iconUrl' => $this->logoUrl($s->icon_path),
+                    'order' => $s->order,
+                ]),
                 'values' => $aboutUs->values->map(fn ($v) => [
                     'id' => $v->id,
                     'title' => $v->title,
+                    'imageUrl' => $this->logoUrl($v->image_path),
                     'description' => $v->{"description_{$locale}"},
                     'order' => $v->order,
                 ]),
+                'milestoneSection' => [
+                    'title' => $aboutUs->{"milestone_title_{$locale}"},
+                    'description' => $aboutUs->{"milestone_description_{$locale}"},
+                ],
+                'video' => [
+                    'title' => $aboutUs->{"video_title_{$locale}"},
+                    'description' => $aboutUs->{"video_description_{$locale}"},
+                    'youtubeUrl' => $aboutUs->video_youtube_url,
+                ],
             ],
         ]);
     }
@@ -66,6 +89,7 @@ class AboutUsController extends Controller
                 'events' => $m->events->map(fn ($e) => [
                     'id' => $e->id,
                     'text' => $e->{"text_{$locale}"},
+                    'description' => $e->{"description_{$locale}"},
                 ]),
             ]),
         ]);

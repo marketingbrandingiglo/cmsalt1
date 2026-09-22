@@ -10,6 +10,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -30,6 +31,7 @@ class MilestoneResource extends Resource
         return $schema
             ->components([
                 TextInput::make('year')
+                    ->label('Period/Year')
                     ->required()
                     ->maxLength(10),
                 TextInput::make('order')
@@ -41,14 +43,20 @@ class MilestoneResource extends Resource
                     ->orderColumn('order')
                     ->schema([
                         TextInput::make('text_id')
-                            ->label('Event (Indonesian)')
+                            ->label('Title (Indonesian)')
                             ->required(),
                         TextInput::make('text_en')
-                            ->label('Event (English)')
+                            ->label('Title (English)')
                             ->required(),
+                        Textarea::make('description_id')
+                            ->label('Description (Indonesian)')
+                            ->rows(2),
+                        Textarea::make('description_en')
+                            ->label('Description (English)')
+                            ->rows(2),
                     ])
                     ->columns(2)
-                    ->addActionLabel('Add event')
+                    ->addActionLabel('Add milestone')
                     ->reorderableWithButtons()
                     ->defaultItems(1),
             ]);
