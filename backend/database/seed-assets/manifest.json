@@ -1,4 +1,15 @@
 {
+  "about": {
+    "banner": "banner_aboutus.png",
+    "description": "i5-fixed.png",
+    "values": [
+      { "title": "Integrity", "file": "ico_integrity.png" },
+      { "title": "Involved", "file": "ico_involved.png" },
+      { "title": "Integrated", "file": "ico_integrated.png" },
+      { "title": "Impressive", "file": "ico_impressive.png" },
+      { "title": "Innovative", "file": "ico_innovative.png" }
+    ]
+  },
   "partners": [
     {
       "name": "SAP",

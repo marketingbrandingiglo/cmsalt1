@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AboutUs;
 use App\Models\ClientCategory;
 use App\Models\Milestone;
 use App\Models\Partner;
@@ -23,9 +24,39 @@ class LogoDataSeeder extends Seeder
     {
         $manifest = json_decode(File::get(database_path('seed-assets/manifest.json')), true);
 
+        $this->seedAboutMedia($manifest['about']);
         $this->seedPartners($manifest['partners']);
         $this->seedMilestoneLogos($manifest['milestones']);
         $this->seedClients($manifest['clients']);
+    }
+
+    /**
+     * Banner image, the "i5" graphic beside Vision & Mission, and each
+     * Value's icon — the exact images already used by the iglo frontend's
+     * static About page. Only fills in images that are still empty, so it
+     * never clobbers something an editor has since uploaded.
+     */
+    private function seedAboutMedia(array $about): void
+    {
+        $aboutUs = AboutUs::singleton();
+
+        if (blank($aboutUs->banner_image_path)) {
+            $aboutUs->banner_image_path = $this->copyAsset('about-banner', $about['banner']);
+        }
+
+        if (blank($aboutUs->description_image_path)) {
+            $aboutUs->description_image_path = $this->copyAsset('about-description', $about['description']);
+        }
+
+        $aboutUs->save();
+
+        foreach ($about['values'] as $v) {
+            $value = $aboutUs->values()->where('title', $v['title'])->first();
+
+            if ($value && blank($value->image_path)) {
+                $value->update(['image_path' => $this->copyAsset('about-values', $v['file'])]);
+            }
+        }
     }
 
     private function copyAsset(string $relativeDir, string $file): string
