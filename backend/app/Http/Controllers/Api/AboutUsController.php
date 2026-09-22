@@ -46,6 +46,7 @@ class AboutUsController extends Controller
                     'description' => $aboutUs->{"banner_description_{$locale}"},
                 ],
                 'description' => $aboutUs->{"description_{$locale}"},
+                'descriptionImageUrl' => $this->logoUrl($aboutUs->description_image_path),
                 'vision' => $aboutUs->{"vision_{$locale}"},
                 'mission' => $aboutUs->{"mission_{$locale}"},
                 'stats' => $aboutUs->stats->map(fn ($s) => [

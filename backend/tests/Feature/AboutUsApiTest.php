@@ -22,6 +22,7 @@ class AboutUsApiTest extends TestCase
             'banner_description_en' => 'Banner description',
             'description_id' => 'Deskripsi ID',
             'description_en' => 'Description EN',
+            'description_image_path' => 'about-description/i5.png',
             'vision_id' => 'Visi ID',
             'vision_en' => 'Vision EN',
             'mission_id' => 'Misi ID',
@@ -79,6 +80,7 @@ class AboutUsApiTest extends TestCase
         ]);
 
         $response->assertJsonPath('data.banner.imageUrl', fn ($url) => str_contains($url, 'about-banner/banner.jpg'));
+        $response->assertJsonPath('data.descriptionImageUrl', fn ($url) => str_contains($url, 'about-description/i5.png'));
         $response->assertJsonPath('data.stats.0.value', '50');
         $response->assertJsonPath('data.stats.0.label', 'Label EN');
         $response->assertJsonPath('data.stats.0.note', 'Note EN');

@@ -22,11 +22,11 @@ use Filament\Support\Icons\Heroicon;
 use UnitEnum;
 
 /**
- * Single settings page for the About Us content (Banner, Deskripsi, Visi,
- * Misi, Vision & Mission Stats, Milestones section heading, Company Video)
- * — there is always exactly one AboutUs row, so this uses a plain form
- * bound to it instead of a list/create/delete Resource. Values and
- * Milestones are managed in their own resources instead.
+ * Single settings page for the About Us content (Deskripsi, Visi, Misi,
+ * Vision & Mission Stats, Company Video) — there is always exactly one
+ * AboutUs row, so this uses a plain form bound to it instead of a
+ * list/create/delete Resource. Banner, Values, and the Milestones section
+ * heading are managed on their own pages/resources instead.
  */
 class ManageAboutUs extends Page
 {
@@ -52,21 +52,13 @@ class ManageAboutUs extends Page
         $this->form->fill([
             ...$aboutUs->only([
                 'company_name',
-                'banner_image_path',
-                'banner_title_id',
-                'banner_title_en',
-                'banner_description_id',
-                'banner_description_en',
+                'description_image_path',
                 'description_id',
                 'description_en',
                 'vision_id',
                 'vision_en',
                 'mission_id',
                 'mission_en',
-                'milestone_title_id',
-                'milestone_title_en',
-                'milestone_description_id',
-                'milestone_description_en',
                 'video_title_id',
                 'video_title_en',
                 'video_description_id',
@@ -82,25 +74,18 @@ class ManageAboutUs extends Page
         return $schema
             ->statePath('data')
             ->components([
-                Section::make('Banner')
-                    ->schema([
-                        FileUpload::make('banner_image_path')
-                            ->label('Image')
-                            ->image()
-                            ->disk('public')
-                            ->directory('about-banner'),
-                        TextInput::make('banner_title_id')->label('Title (Indonesian)')->maxLength(255),
-                        TextInput::make('banner_title_en')->label('Title (English)')->maxLength(255),
-                        Textarea::make('banner_description_id')->label('Description (Indonesian)')->rows(3),
-                        Textarea::make('banner_description_en')->label('Description (English)')->rows(3),
-                    ])
-                    ->columns(2),
                 Section::make('Deskripsi')
                     ->schema([
                         TextInput::make('company_name')
                             ->label('Company name')
                             ->required()
                             ->maxLength(255),
+                        FileUpload::make('description_image_path')
+                            ->label('Image')
+                            ->helperText('Shown beside the Vision & Mission text on the frontend (the "i5" graphic).')
+                            ->image()
+                            ->disk('public')
+                            ->directory('about-description'),
                         RichEditor::make('description_id')
                             ->label('Description (Indonesian)')
                             ->required(),
@@ -139,15 +124,6 @@ class ManageAboutUs extends Page
                             ->reorderableWithButtons()
                             ->defaultItems(0),
                     ]),
-                Section::make('Milestones')
-                    ->description('Section heading shown above the milestone timeline. Manage the timeline itself under the Milestones menu.')
-                    ->schema([
-                        TextInput::make('milestone_title_id')->label('Title (Indonesian)')->maxLength(255),
-                        TextInput::make('milestone_title_en')->label('Title (English)')->maxLength(255),
-                        Textarea::make('milestone_description_id')->label('Description (Indonesian)')->rows(3),
-                        Textarea::make('milestone_description_en')->label('Description (English)')->rows(3),
-                    ])
-                    ->columns(2),
                 Section::make('Company Video')
                     ->schema([
                         TextInput::make('video_title_id')->label('Title (Indonesian)')->maxLength(255),

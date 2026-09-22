@@ -15,6 +15,7 @@ class AdminPanelNavigationTest extends TestCase
     /** @return iterable<string, array{string}> */
     public static function adminPages(): iterable
     {
+        yield 'Banner' => ['/admin/manage-banner'];
         yield 'Visi Misi' => ['/admin/manage-about-us'];
         yield 'Client Categories' => ['/admin/client-categories'];
         yield 'Milestones' => ['/admin/milestones'];

@@ -18,6 +18,7 @@ class AboutUs extends Model
         'banner_description_en',
         'description_id',
         'description_en',
+        'description_image_path',
         'vision_id',
         'vision_en',
         'mission_id',
