@@ -38,7 +38,7 @@ class AboutUsAdminPanelTest extends TestCase
                 'video_description_en' => 'VD EN',
                 'video_youtube_url' => 'https://www.youtube.com/embed/xyz',
                 'stats' => [
-                    ['value' => '50', 'label_id' => 'L ID', 'label_en' => 'L EN', 'note_id' => 'N ID', 'note_en' => 'N EN'],
+                    ['value' => '50', 'label_id' => 'L ID', 'label_en' => 'L EN', 'icon' => 'layers', 'note_id' => 'N ID', 'note_en' => 'N EN'],
                 ],
             ])
             ->call('save')
@@ -50,6 +50,7 @@ class AboutUsAdminPanelTest extends TestCase
         $this->assertSame('https://www.youtube.com/embed/xyz', $aboutUs->video_youtube_url);
         $this->assertSame(1, $aboutUs->stats()->count());
         $this->assertSame('50', $aboutUs->stats()->first()->value);
+        $this->assertSame('layers', $aboutUs->stats()->first()->icon);
     }
 
     public function test_manage_about_us_page_no_longer_manages_banner_or_milestone_section(): void
@@ -178,21 +179,17 @@ class AboutUsAdminPanelTest extends TestCase
         $aboutUs = AboutUs::singleton()->fresh();
         Storage::disk('public')->assertExists($aboutUs->description_image_path);
 
-        // Stat icons are uploaded the same way through the FileUpload component,
-        // but exercising a nested Repeater upload via Livewire's synthetic file-set
-        // test helper is unreliable; verify the storage + API wiring directly instead.
         $stat = $aboutUs->stats()->create([
             'value' => '50',
             'label_id' => 'L ID',
             'label_en' => 'L EN',
-            'icon_path' => UploadedFile::fake()->image('stat.png')->store('about-stats', 'public'),
+            'icon' => 'speed',
             'order' => 0,
         ]);
-        Storage::disk('public')->assertExists($stat->icon_path);
 
         $response = $this->getJson('/api/about-us?locale=en');
         $response->assertJsonPath('data.values.0.imageUrl', fn ($url) => str_contains($url, $value->image_path));
         $response->assertJsonPath('data.descriptionImageUrl', fn ($url) => str_contains($url, $aboutUs->description_image_path));
-        $response->assertJsonPath('data.stats.0.iconUrl', fn ($url) => str_contains($url, $stat->icon_path));
+        $response->assertJsonPath('data.stats.0.icon', 'speed');
     }
 }

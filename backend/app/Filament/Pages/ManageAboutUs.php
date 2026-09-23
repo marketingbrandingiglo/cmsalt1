@@ -8,6 +8,7 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
@@ -65,7 +66,7 @@ class ManageAboutUs extends Page
                 'video_description_en',
                 'video_youtube_url',
             ]),
-            'stats' => $aboutUs->stats()->get()->map->only(['id', 'value', 'label_id', 'label_en', 'note_id', 'note_en', 'icon_path', 'order'])->all(),
+            'stats' => $aboutUs->stats()->get()->map->only(['id', 'value', 'label_id', 'label_en', 'note_id', 'note_en', 'icon', 'order'])->all(),
         ]);
     }
 
@@ -102,22 +103,25 @@ class ManageAboutUs extends Page
                     ])
                     ->columns(2),
                 Section::make('Vision & Mission Stats')
+                    ->description('Each entry shows as two cards on the frontend: a number+label counter, and an icon+text callout next to it.')
                     ->schema([
                         Repeater::make('stats')
                             ->schema([
                                 TextInput::make('value')
-                                    ->label('Value')
+                                    ->label('Number')
                                     ->required()
-                                    ->helperText('e.g. 50, 1100'),
-                                TextInput::make('label_id')->label('Label (Indonesian)')->required(),
-                                TextInput::make('label_en')->label('Label (English)')->required(),
-                                TextInput::make('note_id')->label('Note (Indonesian)'),
-                                TextInput::make('note_en')->label('Note (English)'),
-                                FileUpload::make('icon_path')
-                                    ->label('Icon/SVG')
-                                    ->image()
-                                    ->disk('public')
-                                    ->directory('about-stats'),
+                                    ->helperText('e.g. 50, 1100 — shown as "More Than {number}".'),
+                                TextInput::make('label_id')->label('Number label (Indonesian)')->required(),
+                                TextInput::make('label_en')->label('Number label (English)')->required(),
+                                Select::make('icon')
+                                    ->label('Icon')
+                                    ->options([
+                                        'speed' => 'Lightning (speed/performance)',
+                                        'layers' => 'Layers (digital transformation)',
+                                    ])
+                                    ->native(false),
+                                TextInput::make('note_id')->label('Icon callout text (Indonesian)'),
+                                TextInput::make('note_en')->label('Icon callout text (English)'),
                             ])
                             ->columns(2)
                             ->addActionLabel('Add stat')
@@ -158,7 +162,7 @@ class ManageAboutUs extends Page
                     'label_en' => $stat['label_en'],
                     'note_id' => $stat['note_id'] ?? null,
                     'note_en' => $stat['note_en'] ?? null,
-                    'icon_path' => $stat['icon_path'] ?? null,
+                    'icon' => $stat['icon'] ?? null,
                     'order' => $i,
                 ],
             );

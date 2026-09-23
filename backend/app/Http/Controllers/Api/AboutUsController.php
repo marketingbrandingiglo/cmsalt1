@@ -54,7 +54,7 @@ class AboutUsController extends Controller
                     'value' => $s->value,
                     'label' => $s->{"label_{$locale}"},
                     'note' => $s->{"note_{$locale}"},
-                    'iconUrl' => $this->logoUrl($s->icon_path),
+                    'icon' => $s->icon,
                     'order' => $s->order,
                 ]),
                 'values' => $aboutUs->values->map(fn ($v) => [
