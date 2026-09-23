@@ -66,11 +66,12 @@ class ManageBanner extends Page
                             ->label('Image')
                             ->image()
                             ->disk('public')
-                            ->directory('about-banner'),
-                        TextInput::make('banner_title_id')->label('Title (Indonesian)')->maxLength(255),
+                            ->directory('about-banner')
+                            ->columnSpanFull(),
                         TextInput::make('banner_title_en')->label('Title (English)')->maxLength(255),
-                        Textarea::make('banner_description_id')->label('Description (Indonesian)')->rows(3),
+                        TextInput::make('banner_title_id')->label('Title (Indonesian)')->maxLength(255),
                         Textarea::make('banner_description_en')->label('Description (English)')->rows(3),
+                        Textarea::make('banner_description_id')->label('Description (Indonesian)')->rows(3),
                     ])
                     ->columns(2),
             ]);
