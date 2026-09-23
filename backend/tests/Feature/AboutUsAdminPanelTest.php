@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Filament\Pages\ManageAboutUs;
 use App\Filament\Pages\ManageBanner;
+use App\Filament\Pages\ManageCompanyVideo;
 use App\Filament\Resources\Milestones\Pages\ManageMilestones;
 use App\Filament\Resources\Values\Pages\ManageValues;
 use App\Models\AboutUs;
@@ -19,7 +20,7 @@ class AboutUsAdminPanelTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_manage_about_us_page_saves_description_image_stats_and_video(): void
+    public function test_manage_about_us_page_saves_description_image_and_stats(): void
     {
         $this->actingAs(User::factory()->create());
 
@@ -32,11 +33,6 @@ class AboutUsAdminPanelTest extends TestCase
                 'vision_en' => 'V EN',
                 'mission_id' => 'M ID',
                 'mission_en' => 'M EN',
-                'video_title_id' => 'VT ID',
-                'video_title_en' => 'VT EN',
-                'video_description_id' => 'VD ID',
-                'video_description_en' => 'VD EN',
-                'video_youtube_url' => 'https://www.youtube.com/embed/xyz',
                 'stats' => [
                     ['value' => '50', 'note_id' => 'N ID', 'note_en' => 'N EN'],
                     ['icon' => 'layers', 'note_id' => 'N2 ID', 'note_en' => 'N2 EN'],
@@ -47,8 +43,6 @@ class AboutUsAdminPanelTest extends TestCase
 
         $aboutUs = AboutUs::singleton();
         $this->assertSame('Indocyber', $aboutUs->company_name);
-        $this->assertSame('VT EN', $aboutUs->video_title_en);
-        $this->assertSame('https://www.youtube.com/embed/xyz', $aboutUs->video_youtube_url);
         $this->assertSame(2, $aboutUs->stats()->count());
         $numberStat = $aboutUs->stats()->whereNotNull('value')->first();
         $iconStat = $aboutUs->stats()->whereNotNull('icon')->first();
@@ -58,13 +52,38 @@ class AboutUsAdminPanelTest extends TestCase
         $this->assertNull($iconStat->value);
     }
 
-    public function test_manage_about_us_page_no_longer_manages_banner_or_milestone_section(): void
+    public function test_manage_about_us_page_no_longer_manages_banner_video_or_milestone_section(): void
     {
         $this->actingAs(User::factory()->create());
 
         Livewire::test(ManageAboutUs::class)
             ->assertFormFieldDoesNotExist('banner_title_id')
+            ->assertFormFieldDoesNotExist('video_title_id')
             ->assertFormFieldDoesNotExist('milestone_title_id');
+    }
+
+    public function test_company_video_page_saves_title_description_and_youtube_link(): void
+    {
+        $this->actingAs(User::factory()->create());
+
+        Livewire::test(ManageCompanyVideo::class)
+            ->fillForm([
+                'video_title_id' => 'VT ID',
+                'video_title_en' => 'VT EN',
+                'video_description_id' => 'VD ID',
+                'video_description_en' => 'VD EN',
+                'video_youtube_url' => 'https://www.youtube.com/embed/xyz',
+            ])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $aboutUs = AboutUs::singleton();
+        $this->assertSame('VT EN', $aboutUs->video_title_en);
+        $this->assertSame('https://www.youtube.com/embed/xyz', $aboutUs->video_youtube_url);
+
+        $response = $this->getJson('/api/about-us?locale=en');
+        $response->assertJsonPath('data.video.title', 'VT EN');
+        $response->assertJsonPath('data.video.youtubeUrl', 'https://www.youtube.com/embed/xyz');
     }
 
     public function test_banner_page_saves_image_title_and_description(): void

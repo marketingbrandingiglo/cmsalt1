@@ -59,7 +59,7 @@ class PartnerResource extends Resource
         return $table
             ->defaultSort('order')
             ->columns([
-                ImageColumn::make('logo_path')->label('Logo'),
+                ImageColumn::make('logo_path')->label('Logo')->disk('public'),
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('order')->sortable(),
             ])

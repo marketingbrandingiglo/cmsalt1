@@ -21,6 +21,7 @@ class AdminPanelNavigationTest extends TestCase
         yield 'Milestones' => ['/admin/milestones'];
         yield 'Partners' => ['/admin/partners'];
         yield 'Values' => ['/admin/values'];
+        yield 'Company Video' => ['/admin/manage-company-video'];
     }
 
     #[DataProvider('adminPages')]

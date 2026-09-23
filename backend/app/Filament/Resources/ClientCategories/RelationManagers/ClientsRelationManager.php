@@ -47,7 +47,7 @@ class ClientsRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->defaultSort('order')
             ->columns([
-                ImageColumn::make('logo_path')->label('Logo'),
+                ImageColumn::make('logo_path')->label('Logo')->disk('public'),
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('order')->sortable(),
             ])

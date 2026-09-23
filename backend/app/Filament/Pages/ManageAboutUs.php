@@ -24,9 +24,9 @@ use UnitEnum;
 
 /**
  * Single settings page for the About Us content (Deskripsi, Visi, Misi,
- * Vision & Mission Stats, Company Video) — there is always exactly one
- * AboutUs row, so this uses a plain form bound to it instead of a
- * list/create/delete Resource. Banner, Values, and the Milestones section
+ * Vision & Mission Stats) — there is always exactly one AboutUs row, so
+ * this uses a plain form bound to it instead of a list/create/delete
+ * Resource. Banner, Company Video, Values, and the Milestones section
  * heading are managed on their own pages/resources instead.
  */
 class ManageAboutUs extends Page
@@ -60,11 +60,6 @@ class ManageAboutUs extends Page
                 'vision_en',
                 'mission_id',
                 'mission_en',
-                'video_title_id',
-                'video_title_en',
-                'video_description_id',
-                'video_description_en',
-                'video_youtube_url',
             ]),
             'stats' => $aboutUs->stats()->get()->map->only(['id', 'value', 'note_id', 'note_en', 'icon', 'order'])->all(),
         ]);
@@ -125,18 +120,6 @@ class ManageAboutUs extends Page
                             ->reorderableWithButtons()
                             ->defaultItems(0),
                     ]),
-                Section::make('Company Video')
-                    ->schema([
-                        TextInput::make('video_title_id')->label('Title (Indonesian)')->maxLength(255),
-                        TextInput::make('video_title_en')->label('Title (English)')->maxLength(255),
-                        Textarea::make('video_description_id')->label('Description (Indonesian)')->rows(3),
-                        Textarea::make('video_description_en')->label('Description (English)')->rows(3),
-                        TextInput::make('video_youtube_url')
-                            ->label('YouTube video link')
-                            ->url()
-                            ->maxLength(255),
-                    ])
-                    ->columns(2),
             ]);
     }
 

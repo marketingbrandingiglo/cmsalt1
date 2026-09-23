@@ -68,7 +68,7 @@ class ValueResource extends Resource
         return $table
             ->defaultSort('order')
             ->columns([
-                ImageColumn::make('image_path')->label('Image'),
+                ImageColumn::make('image_path')->label('Image')->disk('public'),
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('order')->sortable(),
             ])
