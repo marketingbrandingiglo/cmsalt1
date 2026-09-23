@@ -40,8 +40,6 @@ class AboutUsApiTest extends TestCase
 
         $aboutUs->stats()->create([
             'value' => '50',
-            'label_id' => 'Label ID',
-            'label_en' => 'Label EN',
             'note_id' => 'Catatan ID',
             'note_en' => 'Note EN',
             'order' => 0,
@@ -82,8 +80,7 @@ class AboutUsApiTest extends TestCase
         $response->assertJsonPath('data.banner.imageUrl', fn ($url) => str_contains($url, 'about-banner/banner.jpg'));
         $response->assertJsonPath('data.descriptionImageUrl', fn ($url) => str_contains($url, 'about-description/i5.png'));
         $response->assertJsonPath('data.stats.0.value', '50');
-        $response->assertJsonPath('data.stats.0.label', 'Label EN');
-        $response->assertJsonPath('data.stats.0.note', 'Note EN');
+        $response->assertJsonPath('data.stats.0.text', 'Note EN');
         $response->assertJsonPath('data.values.0.title', 'Integrity');
         $response->assertJsonPath('data.values.0.description', 'Value description EN');
         $response->assertJsonPath('data.values.0.imageUrl', fn ($url) => str_contains($url, 'about-values/integrity.png'));

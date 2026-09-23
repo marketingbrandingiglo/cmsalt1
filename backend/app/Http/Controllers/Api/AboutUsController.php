@@ -52,8 +52,7 @@ class AboutUsController extends Controller
                 'stats' => $aboutUs->stats->map(fn ($s) => [
                     'id' => $s->id,
                     'value' => $s->value,
-                    'label' => $s->{"label_{$locale}"},
-                    'note' => $s->{"note_{$locale}"},
+                    'text' => $s->{"note_{$locale}"},
                     'icon' => $s->icon,
                     'order' => $s->order,
                 ]),

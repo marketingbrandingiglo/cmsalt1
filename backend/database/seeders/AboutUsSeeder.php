@@ -68,23 +68,13 @@ class AboutUsSeeder extends Seeder
             ]);
         }
 
+        // Each entry is one card on the frontend: either a number+text
+        // counter, or an icon+text feature callout.
         $stats = [
-            [
-                'value' => '50',
-                'label_id' => 'Klien Teratas Telah Menjadi Klien Selama 10 Tahun Terakhir',
-                'label_en' => 'Top Clients Have Stayed With Us for the Past 10 Years',
-                'icon' => 'speed',
-                'note_id' => 'Mempercepat Kinerja Bisnis dan Ciptakan Nilai Nyata',
-                'note_en' => 'Accelerate Business Performance and Create Tangible Value',
-            ],
-            [
-                'value' => '1100',
-                'label_id' => 'Konsultan & Pengembang',
-                'label_en' => 'Consultants & Developers',
-                'icon' => 'layers',
-                'note_id' => 'Perusahaan Solusi & Layanan Transformasi Digital',
-                'note_en' => 'Digital Transformation Solutions & Services Company',
-            ],
+            ['value' => '50', 'note_id' => 'Klien Teratas Telah Menjadi Klien Selama 10 Tahun Terakhir', 'note_en' => 'Top Clients Have Stayed With Us for the Past 10 Years'],
+            ['value' => '1100', 'note_id' => 'Konsultan & Pengembang', 'note_en' => 'Consultants & Developers'],
+            ['icon' => 'speed', 'note_id' => 'Mempercepat Kinerja Bisnis dan Ciptakan Nilai Nyata', 'note_en' => 'Accelerate Business Performance and Create Tangible Value'],
+            ['icon' => 'layers', 'note_id' => 'Perusahaan Solusi & Layanan Transformasi Digital', 'note_en' => 'Digital Transformation Solutions & Services Company'],
         ];
         foreach ($stats as $i => $s) {
             $aboutUs->stats()->create([...$s, 'order' => $i]);

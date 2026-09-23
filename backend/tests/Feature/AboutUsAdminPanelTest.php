@@ -38,7 +38,8 @@ class AboutUsAdminPanelTest extends TestCase
                 'video_description_en' => 'VD EN',
                 'video_youtube_url' => 'https://www.youtube.com/embed/xyz',
                 'stats' => [
-                    ['value' => '50', 'label_id' => 'L ID', 'label_en' => 'L EN', 'icon' => 'layers', 'note_id' => 'N ID', 'note_en' => 'N EN'],
+                    ['value' => '50', 'note_id' => 'N ID', 'note_en' => 'N EN'],
+                    ['icon' => 'layers', 'note_id' => 'N2 ID', 'note_en' => 'N2 EN'],
                 ],
             ])
             ->call('save')
@@ -48,9 +49,13 @@ class AboutUsAdminPanelTest extends TestCase
         $this->assertSame('Indocyber', $aboutUs->company_name);
         $this->assertSame('VT EN', $aboutUs->video_title_en);
         $this->assertSame('https://www.youtube.com/embed/xyz', $aboutUs->video_youtube_url);
-        $this->assertSame(1, $aboutUs->stats()->count());
-        $this->assertSame('50', $aboutUs->stats()->first()->value);
-        $this->assertSame('layers', $aboutUs->stats()->first()->icon);
+        $this->assertSame(2, $aboutUs->stats()->count());
+        $numberStat = $aboutUs->stats()->whereNotNull('value')->first();
+        $iconStat = $aboutUs->stats()->whereNotNull('icon')->first();
+        $this->assertSame('50', $numberStat->value);
+        $this->assertNull($numberStat->icon);
+        $this->assertSame('layers', $iconStat->icon);
+        $this->assertNull($iconStat->value);
     }
 
     public function test_manage_about_us_page_no_longer_manages_banner_or_milestone_section(): void
@@ -180,10 +185,9 @@ class AboutUsAdminPanelTest extends TestCase
         Storage::disk('public')->assertExists($aboutUs->description_image_path);
 
         $stat = $aboutUs->stats()->create([
-            'value' => '50',
-            'label_id' => 'L ID',
-            'label_en' => 'L EN',
             'icon' => 'speed',
+            'note_id' => 'N ID',
+            'note_en' => 'N EN',
             'order' => 0,
         ]);
 
@@ -191,5 +195,6 @@ class AboutUsAdminPanelTest extends TestCase
         $response->assertJsonPath('data.values.0.imageUrl', fn ($url) => str_contains($url, $value->image_path));
         $response->assertJsonPath('data.descriptionImageUrl', fn ($url) => str_contains($url, $aboutUs->description_image_path));
         $response->assertJsonPath('data.stats.0.icon', 'speed');
+        $response->assertJsonPath('data.stats.0.text', 'N EN');
     }
 }

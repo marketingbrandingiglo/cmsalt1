@@ -66,7 +66,7 @@ class ManageAboutUs extends Page
                 'video_description_en',
                 'video_youtube_url',
             ]),
-            'stats' => $aboutUs->stats()->get()->map->only(['id', 'value', 'label_id', 'label_en', 'note_id', 'note_en', 'icon', 'order'])->all(),
+            'stats' => $aboutUs->stats()->get()->map->only(['id', 'value', 'note_id', 'note_en', 'icon', 'order'])->all(),
         ]);
     }
 
@@ -103,16 +103,13 @@ class ManageAboutUs extends Page
                     ])
                     ->columns(2),
                 Section::make('Vision & Mission Stats')
-                    ->description('Each entry shows as two cards on the frontend: a number+label counter, and an icon+text callout next to it.')
+                    ->description('Each entry is shown as one card on the frontend — fill in Number for a counter card (e.g. "More Than 50"), or Icon for a feature card. Neither is required, but fill in at least one.')
                     ->schema([
                         Repeater::make('stats')
                             ->schema([
                                 TextInput::make('value')
                                     ->label('Number')
-                                    ->required()
-                                    ->helperText('e.g. 50, 1100 — shown as "More Than {number}".'),
-                                TextInput::make('label_id')->label('Number label (Indonesian)')->required(),
-                                TextInput::make('label_en')->label('Number label (English)')->required(),
+                                    ->helperText('e.g. 50, 1100'),
                                 Select::make('icon')
                                     ->label('Icon')
                                     ->options([
@@ -120,8 +117,8 @@ class ManageAboutUs extends Page
                                         'layers' => 'Layers (digital transformation)',
                                     ])
                                     ->native(false),
-                                TextInput::make('note_id')->label('Icon callout text (Indonesian)'),
-                                TextInput::make('note_en')->label('Icon callout text (English)'),
+                                TextInput::make('note_id')->label('Text (Indonesian)'),
+                                TextInput::make('note_en')->label('Text (English)'),
                             ])
                             ->columns(2)
                             ->addActionLabel('Add stat')
@@ -157,9 +154,7 @@ class ManageAboutUs extends Page
             $record = $aboutUs->stats()->updateOrCreate(
                 ['id' => $stat['id'] ?? null],
                 [
-                    'value' => $stat['value'],
-                    'label_id' => $stat['label_id'],
-                    'label_en' => $stat['label_en'],
+                    'value' => $stat['value'] ?? null,
                     'note_id' => $stat['note_id'] ?? null,
                     'note_en' => $stat['note_en'] ?? null,
                     'icon' => $stat['icon'] ?? null,
