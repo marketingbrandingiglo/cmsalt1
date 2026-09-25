@@ -13,15 +13,32 @@
 
 /* Image upload previews: move the built-in download icon (enabled via
    ->downloadable() on FileUpload fields) from FilePond's default spot
-   next to the filename to the top-right corner of the image, so it
-   reads as "download this image" rather than part of the filename. */
+   next to the filename to the bottom-right corner of the image, so it
+   reads as "download this image" rather than part of the filename.
+
+   FilePond applies an inline `transform: translate3d(...)` to
+   .filepond--file-info (to nudge the filename away from the remove
+   button), and its stylesheet also sets `will-change: transform` there.
+   Either one alone makes that element the containing block for any
+   absolutely-positioned descendant, regardless of its `position` value
+   — so without the override below, the download icon anchors to the
+   filename's small box instead of the full image. We neutralize both,
+   reproducing the transform's visual offset with margin-left instead,
+   so .filepond--file (position: relative, full height) is the icon's
+   containing block again. */
 .filepond--file {
     position: relative;
 }
 
+.filepond--file .filepond--file-info {
+    transform: none !important;
+    will-change: auto !important;
+    margin-left: 35px;
+}
+
 .filepond--file .filepond--download-icon {
     position: absolute;
-    top: 0.5em;
+    bottom: 0.5em;
     right: 0.5em;
     margin: 0;
 }
