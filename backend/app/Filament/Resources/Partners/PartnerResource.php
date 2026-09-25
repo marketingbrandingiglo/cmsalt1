@@ -43,6 +43,7 @@ class PartnerResource extends Resource
                     ->image()
                     ->disk('public')
                     ->directory('partners')
+                    ->downloadable()
                     ->required(),
                 TextInput::make('website_url')
                     ->label('Website URL')

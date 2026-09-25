@@ -50,7 +50,8 @@ class ValueResource extends Resource
                     ->label('Image')
                     ->image()
                     ->disk('public')
-                    ->directory('about-values'),
+                    ->directory('about-values')
+                    ->downloadable(),
                 Textarea::make('description_id')
                     ->label('Description (Indonesian)')
                     ->rows(3),

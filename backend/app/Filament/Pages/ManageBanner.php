@@ -67,6 +67,7 @@ class ManageBanner extends Page
                             ->image()
                             ->disk('public')
                             ->directory('about-banner')
+                            ->downloadable()
                             ->columnSpanFull(),
                         TextInput::make('banner_title_en')->label('Title (English)')->maxLength(255),
                         TextInput::make('banner_title_id')->label('Title (Indonesian)')->maxLength(255),

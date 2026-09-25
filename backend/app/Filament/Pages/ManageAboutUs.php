@@ -81,7 +81,8 @@ class ManageAboutUs extends Page
                             ->helperText('Shown beside the Vision & Mission text on the frontend (the "i5" graphic).')
                             ->image()
                             ->disk('public')
-                            ->directory('about-description'),
+                            ->directory('about-description')
+                            ->downloadable(),
                         RichEditor::make('description_id')
                             ->label('Description (Indonesian)')
                             ->required(),

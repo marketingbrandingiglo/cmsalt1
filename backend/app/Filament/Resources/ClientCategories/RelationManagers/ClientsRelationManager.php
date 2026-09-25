@@ -30,7 +30,8 @@ class ClientsRelationManager extends RelationManager
                     ->label('Logo')
                     ->image()
                     ->disk('public')
-                    ->directory('clients'),
+                    ->directory('clients')
+                    ->downloadable(),
                 TextInput::make('website_url')
                     ->label('Website URL')
                     ->url()

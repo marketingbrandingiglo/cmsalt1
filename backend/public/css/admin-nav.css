@@ -10,3 +10,18 @@
     font-weight: 400;
     font-size: 0.75rem;
 }
+
+/* Image upload previews: move the built-in download icon (enabled via
+   ->downloadable() on FileUpload fields) from FilePond's default spot
+   next to the filename to the top-right corner of the image, so it
+   reads as "download this image" rather than part of the filename. */
+.filepond--file {
+    position: relative;
+}
+
+.filepond--file .filepond--download-icon {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    margin: 0;
+}

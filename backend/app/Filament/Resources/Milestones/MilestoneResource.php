@@ -54,7 +54,8 @@ class MilestoneResource extends Resource
                             ->label('Logo')
                             ->image()
                             ->disk('public')
-                            ->directory('milestones'),
+                            ->directory('milestones')
+                            ->downloadable(),
                     ])
                     ->columns(2)
                     ->addActionLabel('Add logo')
