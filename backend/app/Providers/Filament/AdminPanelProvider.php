@@ -36,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->darkMode(false)
             ->assets([
-                Css::make('admin-nav', asset('css/admin-nav.css')),
+                Css::make('admin-nav', asset('css/admin-nav.css').'?v='.filemtime(public_path('css/admin-nav.css'))),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
