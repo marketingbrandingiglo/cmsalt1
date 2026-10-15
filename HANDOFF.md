@@ -69,6 +69,11 @@ indocyber-cms-renew/
       `GET /api/home?locale=id|en`, `/api/home/hero-slides`. Seed awal dari
       `lib/content.js` via `database/seeders/HomeSeeder.php`. Kartu produk &
       berita di Home belum dari CMS (menunggu content type Products/News).
+- [x] Admin digabung jadi **satu menu "Halaman"** (2026-10-15): daftar
+      halaman (Beranda, Tentang Kami); tiap halaman = satu form bertab.
+      Resource terpisah (Milestones/Partners/Clients/Hero Slides) dihapus,
+      isinya pindah jadi tab di halamannya. API tidak berubah. Halaman baru
+      ditambah lewat `WebsitePageEditor` + `Halaman::PAGES`.
 - [x] Branding: logo IGLO (`public/images/iglo-logo.png`) + warna primer
       merah (`Color::Red`) di `app/Providers/Filament/AdminPanelProvider.php`.
 - [x] Frontend (`iglowebsitealt1-claude-web-iglo-continuation-ss2bdm`,

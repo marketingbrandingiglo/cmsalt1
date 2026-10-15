@@ -46,6 +46,12 @@ Renew of Indocyber's corporate site: a headless CMS setup.
   `DB_URL`, uploads on a Railway volume at `/app/storage/app/public`. Steps
   in README.md → "Deploying the backend to Railway". Don't deploy or change
   Vercel env vars beyond what the user asks.
+- Admin structure: **one sidebar entry, "Halaman"** (`Filament/Pages/Halaman.php`)
+  listing every public page; each page is one tabbed form extending
+  `Filament/Pages/Halaman/WebsitePageEditor` (list content = inline
+  repeaters synced via `syncRecords()`). Add new pages (Products, News, …)
+  the same way and register them in `Halaman::PAGES` — don't add separate
+  sidebar resources/groups per page (user's explicit preference).
 - `/admin` access: only users with an `@indocyber.id` email
   (`User::canAccessPanel()`, approved by the user 2026-10-15).
 
