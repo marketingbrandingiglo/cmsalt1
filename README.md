@@ -108,7 +108,8 @@ long as the backend is running on port 8000.
 1. Open http://127.0.0.1:8000/admin, log in.
 2. Edit **About Us** (Deskripsi/Visi/Misi/Value), or the **Milestones**,
    **Partners**, **Client Categories**, **Clients** lists in the sidebar.
-   Click **Save**.
+   For the Home page, use the **Home** group: **Home Sections** (Intro,
+   Products & News headings) and **Hero Slides**. Click **Save**.
 3. Refresh http://localhost:3000/about — the change appears (may take up
    to ~60 seconds due to the frontend's fetch cache, or refresh twice).
 

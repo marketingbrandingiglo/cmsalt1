@@ -23,7 +23,8 @@ Renew of Indocyber's corporate site: a headless CMS setup.
   applications** that communicate **only over HTTP**, via a small custom
   read-only REST API (`routes/api.php` → `Api\AboutUsController`,
   `GET /api/about-us`, `/api/about-us/milestones`, `/api/about-us/partners`,
-  `/api/about-us/client-categories`).
+  `/api/about-us/client-categories`; `Api\HomeController`,
+  `GET /api/home`, `/api/home/hero-slides`).
 - The frontend never accesses the backend's database, filesystem, or source
   code directly, and vice versa. The only integration point is the HTTP API.
 - Content flow: an editor changes content in the Filament admin → the

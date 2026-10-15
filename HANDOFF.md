@@ -62,6 +62,13 @@ indocyber-cms-renew/
       `/api/about-us/partners`, `/api/about-us/client-categories`.
 - [x] Data awal ter-seed (migrasi dari `lib/content.js` frontend lama) via
       `database/seeders/AboutUsSeeder.php` — aman dijalankan ulang.
+- [x] CMS halaman **Home** (2026-10-15): grup menu **Home** di admin →
+      `ManageHome` (singleton: Intro/Tagline, heading section Products &
+      News) + `HeroSlideResource` (slide hero: tag/judul/deskripsi ID/EN,
+      gambar opsional, tombol CTA, aktif/nonaktif, urutan). API read-only:
+      `GET /api/home?locale=id|en`, `/api/home/hero-slides`. Seed awal dari
+      `lib/content.js` via `database/seeders/HomeSeeder.php`. Kartu produk &
+      berita di Home belum dari CMS (menunggu content type Products/News).
 - [x] Branding: logo IGLO (`public/images/iglo-logo.png`) + warna primer
       merah (`Color::Red`) di `app/Providers/Filament/AdminPanelProvider.php`.
 - [x] Frontend (`iglowebsitealt1-claude-web-iglo-continuation-ss2bdm`,
