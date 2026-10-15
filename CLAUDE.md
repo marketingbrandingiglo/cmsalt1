@@ -25,12 +25,12 @@ Renew of Indocyber's corporate site: a headless CMS setup.
   `GET /api/about-us`, `/api/about-us/milestones`, `/api/about-us/partners`,
   `/api/about-us/client-categories`; `Api\HomeController`,
   `GET /api/home`, `/api/home/hero-slides`).
-- Admin: a **"Halaman"** sidebar entry (`Filament/Pages/Halaman.php`) lists
-  website pages; each opens one tabbed form extending
-  `Filament/Pages/Halaman/WebsitePageEditor`. Currently only **Beranda**
-  (Home) lives there; the user wants other pages added the same way (one
-  menu, not separate menus per page). About Us still has its own "About Us"
-  sidebar group for now — merging it into Halaman is a pending, separate step.
+- Admin sidebar: one **navigation group per website page** — "Home"
+  (Hero Slides, Intro, Produk & Solusi, Berita) then "About Us" (Banner,
+  Visi Misi, …); group order is set in `AdminPanelProvider::navigationGroups()`.
+  New pages (Products, News, …) get their own group the same way (user's
+  explicit preference, 2026-10-15 — replaced a short-lived single
+  "Halaman" menu).
 - The frontend never accesses the backend's database, filesystem, or source
   code directly, and vice versa. The only integration point is the HTTP API.
 - Content flow: an editor changes content in the Filament admin → the

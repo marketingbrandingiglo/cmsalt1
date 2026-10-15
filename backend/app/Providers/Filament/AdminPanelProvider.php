@@ -35,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Red,
             ])
             ->darkMode(false)
+            ->navigationGroups(['Home', 'About Us'])
             ->assets([
                 Css::make('admin-nav', asset('css/admin-nav.css').'?v='.filemtime(public_path('css/admin-nav.css'))),
             ])

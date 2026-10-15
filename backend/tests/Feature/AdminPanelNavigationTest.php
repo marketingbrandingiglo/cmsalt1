@@ -15,6 +15,10 @@ class AdminPanelNavigationTest extends TestCase
     /** @return iterable<string, array{string}> */
     public static function adminPages(): iterable
     {
+        yield 'Hero Slides' => ['/admin/hero-slides'];
+        yield 'Intro' => ['/admin/manage-home-intro'];
+        yield 'Produk & Solusi' => ['/admin/manage-home-products'];
+        yield 'Berita' => ['/admin/manage-home-news'];
         yield 'Banner' => ['/admin/manage-banner'];
         yield 'Visi Misi' => ['/admin/manage-about-us'];
         yield 'Client Categories' => ['/admin/client-categories'];
@@ -40,5 +44,19 @@ class AdminPanelNavigationTest extends TestCase
         $this->actingAs(User::factory()->create())
             ->get("/admin/client-categories/{$category->id}/edit")
             ->assertOk();
+    }
+
+    public function test_sidebar_lists_home_group_before_about_us(): void
+    {
+        $html = $this->actingAs(User::factory()->create())->get('/admin/hero-slides')->getContent();
+
+        preg_match_all('/class="(fi-sidebar-group-label|fi-sidebar-item-label)[^"]*"[^>]*>\s*([^<]+?)\s*</', $html, $matches);
+        $labels = array_map(fn (string $label) => html_entity_decode($label), $matches[2]);
+
+        $this->assertSame(
+            ['Dashboard', 'Home', 'Hero Slides', 'Intro', 'Produk & Solusi', 'Berita', 'About Us', 'Banner'],
+            array_slice($labels, 0, 8),
+        );
+        $this->assertNotContains('Halaman', $labels);
     }
 }
