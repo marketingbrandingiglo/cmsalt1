@@ -23,7 +23,14 @@ Renew of Indocyber's corporate site: a headless CMS setup.
   applications** that communicate **only over HTTP**, via a small custom
   read-only REST API (`routes/api.php` → `Api\AboutUsController`,
   `GET /api/about-us`, `/api/about-us/milestones`, `/api/about-us/partners`,
-  `/api/about-us/client-categories`).
+  `/api/about-us/client-categories`; `Api\HomeController`,
+  `GET /api/home`, `/api/home/hero-slides`).
+- Admin: a **"Halaman"** sidebar entry (`Filament/Pages/Halaman.php`) lists
+  website pages; each opens one tabbed form extending
+  `Filament/Pages/Halaman/WebsitePageEditor`. Currently only **Beranda**
+  (Home) lives there; the user wants other pages added the same way (one
+  menu, not separate menus per page). About Us still has its own "About Us"
+  sidebar group for now — merging it into Halaman is a pending, separate step.
 - The frontend never accesses the backend's database, filesystem, or source
   code directly, and vice versa. The only integration point is the HTTP API.
 - Content flow: an editor changes content in the Filament admin → the

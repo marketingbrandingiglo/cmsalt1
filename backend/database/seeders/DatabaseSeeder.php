@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AboutUsSeeder::class);
         $this->call(PartnerSeeder::class);
         $this->call(LogoDataSeeder::class);
+        $this->call(HomeSeeder::class);
     }
 }
