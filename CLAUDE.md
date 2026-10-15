@@ -41,9 +41,13 @@ Renew of Indocyber's corporate site: a headless CMS setup.
   — not necessarily first on the machine's system PATH (XAMPP's PHP 8.2 may
   still resolve first for a plain `php` command). See README.md for how to
   run commands with the right PHP.
-- **Nothing here is deployed yet.** Everything currently runs locally only,
-  by explicit request — do not push to git remotes or deploy anywhere
-  (Vercel env vars, a hosting provider, etc.) unless the user asks.
+- **Deployment target: Railway** (requested 2026-10-15). `backend/Dockerfile`
+  + `backend/railway.json` + `backend/docker/start.sh`; Postgres via
+  `DB_URL`, uploads on a Railway volume at `/app/storage/app/public`. Steps
+  in README.md → "Deploying the backend to Railway". Don't deploy or change
+  Vercel env vars beyond what the user asks.
+- `/admin` access: only users with an `@indocyber.id` email
+  (`User::canAccessPanel()`, approved by the user 2026-10-15).
 
 ## History
 

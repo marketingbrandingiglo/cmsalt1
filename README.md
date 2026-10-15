@@ -128,3 +128,53 @@ the servers.
   http://127.0.0.1:8000/api/about-us returns JSON in your browser directly.
 - **`Class "..." not found` errors from Laravel/Filament** — run
   `composer install` again in `backend/`.
+
+---
+
+## Deploying the backend to Railway
+
+The backend ships with a `Dockerfile` (FrankenPHP + PHP 8.4) and
+`railway.json`, both in `backend/`. On every boot the container runs:
+storage link → `migrate --force` → (optional) seed → cache config/routes/views
+→ serve on Railway's `$PORT`. Health check: `/up`.
+
+### One-time setup in the Railway dashboard
+
+1. **New Project → Deploy from GitHub repo** → `marketingbrandingiglo/cmsalt1`.
+   In the service's **Settings**:
+   - **Root Directory**: `backend`
+   - **Branch**: the branch to deploy (e.g. `main` once merged).
+2. **Add a database**: in the project, **+ New → Database → PostgreSQL**.
+3. **Add a volume** to the backend service (right-click service → Attach
+   volume), mount path **`/app/storage/app/public`** — uploaded images
+   (hero slides, logos) live here; without a volume they vanish on redeploy.
+4. **Variables** on the backend service:
+
+   | Variable | Value |
+   |---|---|
+   | `APP_KEY` | output of `php artisan key:generate --show` (run locally) |
+   | `APP_URL` | the service's public URL, e.g. `https://iglo-cms.up.railway.app` |
+   | `DB_CONNECTION` | `pgsql` |
+   | `DB_URL` | `${{Postgres.DATABASE_URL}}` |
+   | `SESSION_SECURE_COOKIE` | `true` |
+   | `SEED_ON_DEPLOY` | `true` **for the first deploy only**, then delete it |
+
+   (`APP_ENV=production`, `APP_DEBUG=false`, `LOG_CHANNEL=stderr` are already
+   set in the Dockerfile.)
+5. **Networking → Generate Domain** to get the public URL (put it in
+   `APP_URL`, then redeploy).
+6. **Create an admin user** (Railway service → **⋯ → Shell**, or
+   `railway ssh` from the CLI):
+   ```bash
+   php artisan make:filament-user
+   ```
+   Only accounts whose email ends in **`@indocyber.id`** can open `/admin`
+   (see `User::canAccessPanel()`); any other account gets 403.
+7. Remove `SEED_ON_DEPLOY` after the first successful deploy — otherwise
+   content an editor deleted on purpose would be re-seeded on redeploy.
+
+### Pointing the frontend at it
+
+In the frontend's Vercel project set
+`NEXT_PUBLIC_CMS_API_URL=https://<railway-domain>/api` and redeploy. The API
+is public and read-only, so exposing this URL is fine (CLAUDE.md rule 1).
