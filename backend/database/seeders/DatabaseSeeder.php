@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PartnerSeeder::class);
         $this->call(LogoDataSeeder::class);
         $this->call(HomeSeeder::class);
+        $this->call(AdminUserSeeder::class);
     }
 }

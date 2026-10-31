@@ -123,4 +123,20 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Initial Admin Account
+    |--------------------------------------------------------------------------
+    |
+    | On hosts without a shell (e.g. Render's free tier), the first admin
+    | user is created at boot by AdminUserSeeder from these values. Only
+    | used when no user with that email exists yet.
+    |
+    */
+
+    'initial_admin' => [
+        'email' => env('ADMIN_EMAIL'),
+        'password' => env('ADMIN_PASSWORD'),
+    ],
+
 ];

@@ -50,8 +50,9 @@ Konfigurasi Render ada di `render.yaml` (root repo). Upload memakai disk
    | `R2_*` | dari R2 (langkah 2) |
 4. **Apply**. Deploy pertama menjalankan migrasi + seed otomatis (isi About
    Us, Home, dan logo bawaan ke R2).
-5. Buat akun admin: service → **Shell** →
-   `php artisan make:filament-user` (pakai email `@indocyber.id`).
+5. Akun admin dibuat otomatis saat start dari `ADMIN_EMAIL` + `ADMIN_PASSWORD`
+   (Render Free tidak punya Shell). Hanya dibuat sekali; password yang diganti
+   nanti tidak ditimpa.
 6. Cek: `https://<url-render>/api/home` mengembalikan JSON, dan `/admin` bisa login.
 
 ## 4. Frontend (Vercel)
