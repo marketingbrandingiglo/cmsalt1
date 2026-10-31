@@ -65,7 +65,7 @@ class ManageBanner extends Page
                         FileUpload::make('banner_image_path')
                             ->label('Image')
                             ->image()
-                            ->disk('public')
+                            ->disk(config('filesystems.media_disk'))
                             ->directory('about-banner')
                             ->downloadable()
                             ->columnSpanFull(),

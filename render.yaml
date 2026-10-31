@@ -1,0 +1,46 @@
+# Render Blueprint for the IGLO CMS backend (Laravel + Filament).
+# Database: Neon Postgres (DB_URL). Uploads: Cloudflare R2 (MEDIA_DISK=r2),
+# because the free web service's filesystem is wiped on every deploy/restart.
+# Values marked `sync: false` are entered once in the Render dashboard.
+services:
+  - type: web
+    name: iglo-cms
+    runtime: docker
+    plan: free
+    region: singapore
+    branch: claude/amazing-noether-s6fyuo
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /up
+    autoDeployTrigger: commit
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: APP_KEY
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL
+        sync: false
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
+      - key: PHP_CLI_SERVER_WORKERS
+        value: "4"
+      - key: MEDIA_DISK
+        value: r2
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET
+        sync: false
+      - key: R2_ENDPOINT
+        sync: false
+      - key: R2_PUBLIC_URL
+        sync: false

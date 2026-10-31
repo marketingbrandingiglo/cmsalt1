@@ -41,7 +41,7 @@ class PartnerResource extends Resource
                 FileUpload::make('logo_path')
                     ->label('Logo')
                     ->image()
-                    ->disk('public')
+                    ->disk(config('filesystems.media_disk'))
                     ->directory('partners')
                     ->downloadable()
                     ->required(),
@@ -60,7 +60,7 @@ class PartnerResource extends Resource
         return $table
             ->defaultSort('order')
             ->columns([
-                ImageColumn::make('logo_path')->label('Logo')->disk('public'),
+                ImageColumn::make('logo_path')->label('Logo')->disk(config('filesystems.media_disk')),
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('order')->sortable(),
             ])

@@ -61,13 +61,13 @@ class LogoDataSeeder extends Seeder
      */
     private function ensureAsset(?string $currentPath, string $relativeDir, string $file): string
     {
-        if (filled($currentPath) && Storage::disk('public')->exists($currentPath)) {
+        if (filled($currentPath) && Storage::disk(config('filesystems.media_disk'))->exists($currentPath)) {
             return $currentPath;
         }
 
         $source = database_path("seed-assets/{$relativeDir}/{$file}");
         $destination = "{$relativeDir}/{$file}";
-        Storage::disk('public')->put($destination, File::get($source));
+        Storage::disk(config('filesystems.media_disk'))->put($destination, File::get($source));
 
         return $destination;
     }

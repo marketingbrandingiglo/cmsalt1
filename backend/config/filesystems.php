@@ -17,6 +17,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Media Disk
+    |--------------------------------------------------------------------------
+    |
+    | Where CMS uploads (logos, banners, hero slides, ...) are stored and
+    | served from. "public" (local storage/app/public) for local dev; "r2"
+    | (Cloudflare R2) on hosts whose filesystem is wiped on redeploy, e.g.
+    | Render's free tier.
+    |
+    */
+
+    'media_disk' => env('MEDIA_DISK', 'public'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Filesystem Disks
     |--------------------------------------------------------------------------
     |
@@ -43,6 +57,23 @@ return [
             'root' => storage_path('app/public'),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        // Cloudflare R2 (S3-compatible). R2_PUBLIC_URL is the bucket's public
+        // r2.dev or custom-domain URL that the frontend loads images from.
+        'r2' => [
+            'driver' => 's3',
+            'key' => env('R2_ACCESS_KEY_ID'),
+            'secret' => env('R2_SECRET_ACCESS_KEY'),
+            'region' => 'auto',
+            'bucket' => env('R2_BUCKET'),
+            'url' => env('R2_PUBLIC_URL'),
+            'endpoint' => env('R2_ENDPOINT'),
+            'use_path_style_endpoint' => true,
+            // No 'visibility' here: R2 rejects per-object public ACLs.
+            // Public access is a bucket setting (r2.dev / custom domain).
             'throw' => false,
             'report' => false,
         ],

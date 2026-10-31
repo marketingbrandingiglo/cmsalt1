@@ -69,7 +69,7 @@ class HeroSlideResource extends Resource
                             ->helperText('Leave empty to use the default illustration.')
                             ->image()
                             ->maxSize(4096)
-                            ->disk('public')
+                            ->disk(config('filesystems.media_disk'))
                             ->directory('hero-slides')
                             ->downloadable(),
                     ])
@@ -92,7 +92,7 @@ class HeroSlideResource extends Resource
             ->defaultSort('order')
             ->reorderable('order')
             ->columns([
-                ImageColumn::make('image_path')->label('Image')->disk('public'),
+                ImageColumn::make('image_path')->label('Image')->disk(config('filesystems.media_disk')),
                 TextColumn::make('tag_id')->label('Tag'),
                 TextColumn::make('title_id')->label('Title')->limit(60)->searchable(['title_id', 'title_en']),
                 IconColumn::make('is_active')->label('Active')->boolean(),

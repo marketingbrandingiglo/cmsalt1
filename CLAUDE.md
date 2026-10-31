@@ -47,9 +47,13 @@ Renew of Indocyber's corporate site: a headless CMS setup.
   — not necessarily first on the machine's system PATH (XAMPP's PHP 8.2 may
   still resolve first for a plain `php` command). See README.md for how to
   run commands with the right PHP.
-- **Nothing here is deployed yet.** Everything currently runs locally only,
-  by explicit request — do not push to git remotes or deploy anywhere
-  (Vercel env vars, a hosting provider, etc.) unless the user asks.
+- **Hosting: Render (free) + Neon Postgres + Cloudflare R2** (moved off
+  Railway when its trial ended, 2026-10-31). `render.yaml` at the repo root
+  deploys branch `claude/amazing-noether-s6fyuo` with `backend/Dockerfile`;
+  setup steps in `DEPLOY-RENDER.md`. Uploads go to the disk named by
+  `MEDIA_DISK` (`config('filesystems.media_disk')`: `public` locally, `r2` on
+  Render) — always use that, never hard-code `disk('public')`. Don't deploy
+  or change Vercel env vars beyond what the user asks.
 
 ## History
 

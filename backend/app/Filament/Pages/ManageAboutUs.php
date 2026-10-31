@@ -80,7 +80,7 @@ class ManageAboutUs extends Page
                             ->label('Image')
                             ->helperText('Shown beside the Vision & Mission text on the frontend (the "i5" graphic).')
                             ->image()
-                            ->disk('public')
+                            ->disk(config('filesystems.media_disk'))
                             ->directory('about-description')
                             ->downloadable(),
                         RichEditor::make('description_id')

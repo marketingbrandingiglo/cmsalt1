@@ -29,7 +29,7 @@ class ClientsRelationManager extends RelationManager
                 FileUpload::make('logo_path')
                     ->label('Logo')
                     ->image()
-                    ->disk('public')
+                    ->disk(config('filesystems.media_disk'))
                     ->directory('clients')
                     ->downloadable(),
                 TextInput::make('website_url')
@@ -48,7 +48,7 @@ class ClientsRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->defaultSort('order')
             ->columns([
-                ImageColumn::make('logo_path')->label('Logo')->disk('public'),
+                ImageColumn::make('logo_path')->label('Logo')->disk(config('filesystems.media_disk')),
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('order')->sortable(),
             ])

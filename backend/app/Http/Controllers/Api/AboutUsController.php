@@ -25,7 +25,7 @@ class AboutUsController extends Controller
 
     private function logoUrl(?string $path): ?string
     {
-        return $path ? Storage::disk('public')->url($path) : null;
+        return $path ? Storage::disk(config('filesystems.media_disk'))->url($path) : null;
     }
 
     public function aboutUs(Request $request)

@@ -61,7 +61,7 @@ class HomeController extends Controller
                 'tag' => $s->{"tag_{$locale}"},
                 'title' => $s->{"title_{$locale}"},
                 'description' => $s->{"description_{$locale}"},
-                'imageUrl' => $s->image_path ? Storage::disk('public')->url($s->image_path) : null,
+                'imageUrl' => $s->image_path ? Storage::disk(config('filesystems.media_disk'))->url($s->image_path) : null,
                 'ctaLabel' => $s->{"cta_label_{$locale}"},
                 'ctaUrl' => $s->cta_url,
                 'order' => $s->order,

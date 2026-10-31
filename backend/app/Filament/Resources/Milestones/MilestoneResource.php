@@ -53,7 +53,7 @@ class MilestoneResource extends Resource
                         FileUpload::make('logo_path')
                             ->label('Logo')
                             ->image()
-                            ->disk('public')
+                            ->disk(config('filesystems.media_disk'))
                             ->directory('milestones')
                             ->downloadable(),
                     ])

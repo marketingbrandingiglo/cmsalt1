@@ -49,7 +49,7 @@ class ValueResource extends Resource
                 FileUpload::make('image_path')
                     ->label('Image')
                     ->image()
-                    ->disk('public')
+                    ->disk(config('filesystems.media_disk'))
                     ->directory('about-values')
                     ->downloadable(),
                 Textarea::make('description_id')
@@ -69,7 +69,7 @@ class ValueResource extends Resource
         return $table
             ->defaultSort('order')
             ->columns([
-                ImageColumn::make('image_path')->label('Image')->disk('public'),
+                ImageColumn::make('image_path')->label('Image')->disk(config('filesystems.media_disk')),
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('order')->sortable(),
             ])
