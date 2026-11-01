@@ -47,13 +47,17 @@ Renew of Indocyber's corporate site: a headless CMS setup.
   — not necessarily first on the machine's system PATH (XAMPP's PHP 8.2 may
   still resolve first for a plain `php` command). See README.md for how to
   run commands with the right PHP.
-- **Hosting: Render (free) + Neon Postgres + Cloudflare R2** (moved off
-  Railway when its trial ended, 2026-10-31). `render.yaml` at the repo root
-  deploys branch `claude/amazing-noether-s6fyuo` with `backend/Dockerfile`;
-  setup steps in `DEPLOY-RENDER.md`. Uploads go to the disk named by
-  `MEDIA_DISK` (`config('filesystems.media_disk')`: `public` locally, `r2` on
-  Render) — always use that, never hard-code `disk('public')`. Don't deploy
-  or change Vercel env vars beyond what the user asks.
+- **Hosting: Vercel container service + Neon Postgres + Cloudflare R2**
+  (2026-11-01; Railway trial ended, Render needed a card the user couldn't
+  use, Hugging Face blocks outbound port 5432). `backend/vercel.json` +
+  `backend/Dockerfile.vercel` (FrankenPHP, region sin1) deploy branch
+  `claude/amazing-noether-s6fyuo`; steps in `DEPLOY-VERCEL.md`. Start-up runs
+  `php artisan cms:bootstrap` (migrate, seed only an empty DB, ensure the
+  ADMIN_EMAIL user). Uploads go to the disk named by `MEDIA_DISK`
+  (`config('filesystems.media_disk')`: `public` locally, `r2` in production;
+  Livewire temp uploads follow it) — never hard-code `disk('public')`. The
+  container filesystem is not durable and config must not be cached at build.
+  `render.yaml` / `DEPLOY-RENDER.md` remain as an alternative.
 
 ## History
 

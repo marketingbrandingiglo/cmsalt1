@@ -72,6 +72,9 @@ return [
             'url' => env('R2_PUBLIC_URL'),
             'endpoint' => env('R2_ENDPOINT'),
             'use_path_style_endpoint' => true,
+            // R2 has no per-object ACLs: don't read an object's ACL when
+            // copying/moving it (e.g. Livewire temp upload -> final path).
+            'retain_visibility' => false,
             // No 'visibility' here: R2 rejects per-object public ACLs.
             // Public access is a bucket setting (r2.dev / custom domain).
             'throw' => false,
