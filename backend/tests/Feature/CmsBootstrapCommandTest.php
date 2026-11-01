@@ -6,6 +6,7 @@ use App\Models\AboutUs;
 use App\Models\HeroSlide;
 use App\Models\User;
 use App\Providers\AppServiceProvider;
+use Database\Seeders\AboutUsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -30,6 +31,19 @@ class CmsBootstrapCommandTest extends TestCase
 
         $this->assertSame(0, HeroSlide::count());
         $this->assertSame(1, User::count());
+    }
+
+    public function test_an_interrupted_initial_seed_is_finished_on_the_next_start(): void
+    {
+        Storage::fake('public');
+
+        // A previous start got as far as the About Us seeder, then stopped.
+        $this->seed(AboutUsSeeder::class);
+        $this->assertSame(0, HeroSlide::count());
+
+        $this->artisan('cms:bootstrap')->assertSuccessful();
+
+        $this->assertSame(3, HeroSlide::count());
     }
 
     public function test_livewire_temporary_uploads_follow_an_object_storage_media_disk(): void
