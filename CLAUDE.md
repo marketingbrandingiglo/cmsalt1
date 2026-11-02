@@ -53,7 +53,8 @@ Renew of Indocyber's corporate site: a headless CMS setup.
   `backend/Dockerfile.vercel` (FrankenPHP, region sin1) deploy branch
   `claude/amazing-noether-s6fyuo`; steps in `DEPLOY-VERCEL.md`. Start-up runs
   `php artisan cms:bootstrap` (migrate, seed only an empty DB, ensure the
-  ADMIN_EMAIL user). Uploads go to the disk named by `MEDIA_DISK`
+  ADMIN_EMAIL user; its password follows ADMIN_PASSWORD only when that value
+  changes — owner-approved 2026-11-02). Uploads go to the disk named by `MEDIA_DISK`
   (`config('filesystems.media_disk')`: `public` locally, `r2` in production;
   Livewire temp uploads follow it) — never hard-code `disk('public')`. The
   container filesystem is not durable and config must not be cached at build.

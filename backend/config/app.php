@@ -129,8 +129,9 @@ return [
     |--------------------------------------------------------------------------
     |
     | On hosts without a shell (e.g. Render's free tier), the first admin
-    | user is created at boot by AdminUserSeeder from these values. Only
-    | used when no user with that email exists yet.
+    | user is created at boot by AdminUserSeeder from these values; when
+    | ADMIN_PASSWORD is changed (and redeployed) the account's password
+    | follows it.
     |
     */
 
