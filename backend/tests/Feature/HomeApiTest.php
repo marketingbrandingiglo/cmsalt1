@@ -6,6 +6,7 @@ use App\Models\HeroSlide;
 use App\Models\HomePage;
 use Database\Seeders\HomeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class HomeApiTest extends TestCase
@@ -19,6 +20,7 @@ class HomeApiTest extends TestCase
 
     public function test_home_returns_localized_sections(): void
     {
+        Storage::fake('public');
         $this->seed(HomeSeeder::class);
 
         $this->getJson('/api/home?locale=en')
@@ -34,6 +36,7 @@ class HomeApiTest extends TestCase
 
     public function test_unknown_locale_falls_back_to_indonesian(): void
     {
+        Storage::fake('public');
         $this->seed(HomeSeeder::class);
 
         $this->getJson('/api/home?locale=<script>')

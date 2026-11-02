@@ -23,7 +23,7 @@ class CmsBootstrapCommandTest extends TestCase
         $this->artisan('cms:bootstrap')->assertSuccessful();
 
         $this->assertTrue(AboutUs::query()->exists());
-        $this->assertSame(3, HeroSlide::count());
+        $this->assertSame(4, HeroSlide::count());
         $this->assertTrue(User::where('email', 'design@indocyber.id')->exists());
 
         HeroSlide::query()->delete();
@@ -43,7 +43,7 @@ class CmsBootstrapCommandTest extends TestCase
 
         $this->artisan('cms:bootstrap')->assertSuccessful();
 
-        $this->assertSame(3, HeroSlide::count());
+        $this->assertSame(4, HeroSlide::count());
     }
 
     public function test_livewire_temporary_uploads_follow_an_object_storage_media_disk(): void

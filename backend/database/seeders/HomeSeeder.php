@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\HeroSlide;
 use App\Models\HomePage;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class HomeSeeder extends Seeder
 {
@@ -30,7 +32,7 @@ class HomeSeeder extends Seeder
     private function seedHomePage(): void
     {
         if (HomePage::query()->exists()) {
-            $this->command->info('home_page already has content, skipping');
+            $this->command?->info('home_page already has content, skipping');
 
             return;
         }
@@ -61,41 +63,63 @@ class HomeSeeder extends Seeder
     private function seedHeroSlides(): void
     {
         if (HeroSlide::query()->exists()) {
-            $this->command->info('hero_slides already has content, skipping');
+            $this->command?->info('hero_slides already has content, skipping');
 
             return;
         }
 
+        self::createDefaultHeroSlides();
+    }
+
+    /**
+     * The hero slides currently on the live iglo frontend (lib/content.js
+     * `hero`, with the banner_1..4.jpg photos), copied to the media disk.
+     */
+    public static function createDefaultHeroSlides(): void
+    {
         $slides = [
             [
-                'tag_id' => 'Insight Industri',
-                'tag_en' => 'Industry Insight',
-                'title_id' => 'Kekurangan Talenta AI Menjadi Tantangan Baru bagi Industri Keuangan',
-                'title_en' => 'AI Skills Shortage Becomes a New Challenge for the Financial Industry',
-                'description_id' => 'Kelangkaan talenta AI kini memperlambat transformasi digital di sektor keuangan. Pahami penyebab, dampak, dan solusinya bagi bank serta lembaga keuangan.',
-                'description_en' => 'AI talent shortage is now slowing digital transformation in the financial sector. Learn the causes, impact, and solutions for banks and financial institutions.',
+                'file' => 'banner_1.jpg',
+                'title_id' => 'Mengapa Strategi Rekrutmen Tradisional Tidak Lagi Cukup untuk Proyek IT Modern',
+                'title_en' => 'Why Traditional Hiring Strategies Are No Longer Enough for Modern IT Projects.',
+                'description_id' => 'Siklus rekrutmen yang panjang, onboarding yang rumit, dan tuntutan keahlian AI membuat strategi rekrutmen tradisional semakin sulit mengikuti kecepatan bisnis.',
+                'description_en' => 'Long hiring cycles, complex onboarding, and the demand for AI skills are making traditional recruitment strategies harder to keep pace with business speed.',
             ],
             [
-                'tag_id' => 'Enterprise',
-                'tag_en' => 'Enterprise',
-                'title_id' => 'Cara Mempercepat Sistem Bisnis Anda',
-                'title_en' => 'How to Accelerate Your Business System',
-                'description_id' => 'Banyak perusahaan masih menghadapi proses bisnis yang lambat akibat sistem yang sulit dikembangkan, integrasi rumit, dan ketergantungan pada coding konvensional.',
-                'description_en' => 'Many companies still face slow business processes caused by systems that are difficult to develop, complex integrations, and heavy dependence on conventional coding.',
+                'file' => 'banner_2.jpg',
+                'title_id' => 'Dari Otomasi Workflow Menuju Digital Workforce: Mengenal Creatio 10x',
+                'title_en' => 'From Workflow Automation to Digital Workforce: Inside Creatio 10x.',
+                'description_id' => 'Ketahui bagaimana Creatio 10x mengubah otomasi workflow konvensional menjadi digital workforce bagi perusahaan modern.',
+                'description_en' => 'Discover how Creatio 10x transforms traditional workflow automation into a digital workforce for modern enterprises.',
             ],
             [
-                'tag_id' => 'SAP GROW',
-                'tag_en' => 'SAP GROW',
-                'title_id' => 'Mengapa AI Bekerja Lebih Baik dengan SAP GROW Dibanding Sistem Terpisah',
-                'title_en' => 'Why AI Performs Better with SAP GROW Than Disconnected Systems',
-                'description_id' => 'Banyak perusahaan gagal memaksimalkan AI karena fondasinya belum siap. Temukan tiga komponen penting yang dibutuhkan AI berdasarkan kerangka SAP GROW.',
-                'description_en' => "Many companies fail to maximize AI because their foundation isn't ready. Discover the three critical components AI needs, based on the SAP GROW framework.",
+                'file' => 'banner_3.jpg',
+                'title_id' => 'Cloud ERP vs On-Premise ERP: Mana yang Tepat untuk Implementasi SAP Pertama Anda?',
+                'title_en' => 'Cloud ERP vs On-Premise ERP: Which Is Right for Your First SAP Implementation?',
+                'description_id' => 'Bingung memilih Cloud ERP atau On-Premise untuk implementasi SAP pertama? Bandingkan biaya, kecepatan, dan risikonya sebelum memutuskan.',
+                'description_en' => 'Choosing between Cloud ERP and On-Premise for your first SAP implementation? Compare cost, speed, and risk before you decide.',
+            ],
+            [
+                'file' => 'banner_4.jpg',
+                'title_id' => 'Mengapa Perusahaan Kini Mencari Kemampuan AI Engineering, Bukan Sekadar Programming',
+                'title_en' => 'Why Companies Are Now Looking for AI Engineering Skills, Not Just Programming Skills.',
+                'description_id' => 'Mengapa perusahaan kini lebih mencari keahlian AI Engineering dibanding sekadar kemampuan programming? Simak tren, skill yang dibutuhkan, dan strategi membangun kapabilitas AI enterprise.',
+                'description_en' => 'Why are companies now looking for AI Engineering Skills instead of just programming ability? Discover the trends, in-demand skills, and strategies for building enterprise AI capability.',
             ],
         ];
 
+        $disk = Storage::disk(config('filesystems.media_disk'));
+
         foreach ($slides as $i => $slide) {
+            $path = 'hero-slides/'.$slide['file'];
+
+            if (! $disk->exists($path)) {
+                $disk->put($path, File::get(database_path('seed-assets/'.$path)));
+            }
+
             HeroSlide::create([
-                ...$slide,
+                ...collect($slide)->except('file')->all(),
+                'image_path' => $path,
                 'cta_label_id' => 'Selengkapnya',
                 'cta_label_en' => 'Read More',
                 'cta_url' => '/news',

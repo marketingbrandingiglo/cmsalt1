@@ -11,6 +11,7 @@ use App\Models\HomePage;
 use App\Models\User;
 use Database\Seeders\HomeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -23,6 +24,7 @@ class HomeAdminTest extends TestCase
         parent::setUp();
 
         $this->actingAs(User::factory()->create());
+        Storage::fake('public');
         $this->seed(HomeSeeder::class);
     }
 
@@ -81,6 +83,7 @@ class HomeAdminTest extends TestCase
     {
         HeroSlide::query()->delete();
 
+        Storage::fake('public');
         $this->seed(HomeSeeder::class);
 
         $this->assertSame(0, HeroSlide::count());
